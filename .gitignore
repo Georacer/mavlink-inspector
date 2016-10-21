@@ -1,0 +1,4 @@
+# ASCII logs - ignoring because of large size
+*.log
+*.elog
+*.*~
