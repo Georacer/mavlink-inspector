@@ -1,0 +1,12 @@
+Add system checks
+
+Add parameter checks
+
+Add rudimentary reporting
+* SW version
+* Flight length
+* Date and time
+
+Add static, hard constraint checks
+
+Add derived checks
