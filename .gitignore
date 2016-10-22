@@ -1,4 +1,6 @@
 # ASCII logs - ignoring because of large size
 *.log
 *.elog
+
+# Ignoring open files
 *.*~

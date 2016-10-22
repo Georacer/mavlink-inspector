@@ -1,12 +1,12 @@
-Add system checks
-
-Add parameter checks
-
 Add rudimentary reporting
 * SW version
 * Flight length
 * Date and time
+* Which messages were read and how many
+
+Add parameter checks
 
 Add static, hard constraint checks
 
 Add derived checks
+* revise existing flight/crash checks
