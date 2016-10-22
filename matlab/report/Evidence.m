@@ -9,7 +9,7 @@ classdef Evidence
         time_stop = 0;
         stamp_start = 0;
         stamp_stop = 0;
-        data;
+        data = Series.empty;
     end
     
     methods

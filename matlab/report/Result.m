@@ -5,7 +5,9 @@ classdef Result
     properties
         name = '';
         description = '';
+        id = '';
         outcome = '';
+        value
         evidence = Evidence.empty;        
     end
     
