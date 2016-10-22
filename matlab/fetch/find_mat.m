@@ -1,4 +1,4 @@
-function [ filePath ] = find_log( id )
+function [ filePath ] = find_mat( id )
 %FIND_LOG Find the path of the .mat file
 %   Given a log id
 
@@ -8,7 +8,7 @@ p.parse(id);
 opts = p.Results;
 id = opts.id;
 
-key = sprintf('logs/%03d/*.BIN',id);
+key = sprintf('logs/%03d/*.mat',id);
 file = dir(key);
 
 filePath = sprintf('logs/%03d/%s',id,file.name);

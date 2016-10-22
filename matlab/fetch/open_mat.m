@@ -8,7 +8,7 @@ p.parse(id);
 opts = p.Results;
 id = opts.id;
 
-filePath = find_log(id);
+filePath = find_mat(id);
 evalin('base', sprintf('load(''%s'')',filePath));
 
 end
