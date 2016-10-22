@@ -18,7 +18,7 @@ values = paramRaw{2};
 param = struct();
 
 for i=1:length(paramRaw{1})
-    param.(paramRaw{1}{i}) = values(2);
+    param.(paramRaw{1}{i}) = values(i);
 end
 
 end
