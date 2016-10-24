@@ -38,6 +38,7 @@ lineNum = 0;
 
 waitbarPeriod = floor(fileLines/100);
 
+msgs = [];
 msgIndices = [];
 
 while true
@@ -78,9 +79,11 @@ while true
             [~,instances] = system(sprintf('grep ^%s, %s | wc -l',msgName, which(filePath))); % Number of lines in the log file
             instances = str2double(instances);
             
-            if hasStr(msgFormat)                        
-                eval(sprintf('%s=cell(%d,%d);',msgName,instances,length(msgFormat)) );
+            if hasStr(msgFormat)
+                msgs.(msgName) = cell(instances,length(msgFormat));
+%                 eval(sprintf('%s=cell(%d,%d);',msgName,instances,length(msgFormat)) );
             else
+                msgs.(msgName) = zeros(instances,length(msgFormat));
                 eval(sprintf('%s=zeros(%d,%d);',msgName,instances,length(msgFormat)) );
             end
             
@@ -115,11 +118,13 @@ while true
         
         tempInd = msgIndices.(msgType);
         
-        if hasStr(format)        
-            eval(sprintf('%s(%d,:) = newrow;',msgType, tempInd) );
+        if hasStr(format)
+            msgs.(msgType)(tempInd,:) = newrow;
+%             eval(sprintf('%s(%d,:) = newrow;',msgType, tempInd) );
         else
             newrow = cell2mat(newrow);
-            eval(sprintf('%s(%d,:) = newrow;',msgType, tempInd));
+            msgs.(msgType)(tempInd,:) = newrow;
+%             eval(sprintf('%s(%d,:) = newrow;',msgType, tempInd));
         end
         msgIndices.(msgType) = msgIndices.(msgType)+1;
          
@@ -138,9 +143,7 @@ end
 
 assignin('base','formats',formats);
 assignin('base','msgsSeen',msgsSeen);
-for i=1:length(msgsSeen)
-    eval(sprintf('assignin(''base'',''%s'',%s)',msgsSeen{i},msgsSeen{i}));
-end
+assignin('base','msgs',msgs);
 
 close(mh);
 
