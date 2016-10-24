@@ -5,5 +5,5 @@
 # Ignoring open files
 *.*~
 
-# Ignoring .mat files which are usually very large
-*.mat
+# Ignoring log .mat files which are usually very large
+logs/*/*.mat
