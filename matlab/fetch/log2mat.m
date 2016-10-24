@@ -145,9 +145,13 @@ assignin('base','formats',formats);
 assignin('base','msgsSeen',msgsSeen);
 assignin('base','msgs',msgs);
 
+[folder, fileName, ~] = fileparts(filePath);
+
+hash = gitHashShort('log2mat');
+save(sprintf('%s/%_%d.mat',folder,fileName,hash), 'formats', 'msgsSeen', 'msgs');
+
 close(mh);
 
 profile off
 
 end
-

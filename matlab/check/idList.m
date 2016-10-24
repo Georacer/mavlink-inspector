@@ -13,6 +13,10 @@ switch checkName
         id = 1;
     case 'logName'
         id = 2;
+    case 'gitBuild'
+        id = 3;
+    case 'gitHashShort'
+        id = 4;
     otherwise
         error('Unknown check');
 end
