@@ -131,7 +131,6 @@ end
 
 close(mh);
 
-profile viewer
 profile off
 
 end

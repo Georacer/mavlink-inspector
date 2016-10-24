@@ -15,11 +15,11 @@ formatStr = 's';
 for i=1:length(format)
     
     switch format(i)
-        case {'b', 'B', 'h', 'H', 'i', 'I', 'M', 'q', 'Q'}
+        case {'b', 'B', 'h', 'H', 'i', 'I', 'q', 'Q'}
             formatStr = [ formatStr 'd'];
         case {'f', 'c', 'C', 'e', 'E', 'L', 'd'}
             formatStr = [ formatStr 'f'];
-        case {'n', 'N', 'Z'}
+        case {'n', 'N', 'Z', 'M'}
             formatStr = [ formatStr 's'];
         otherwise
             error('Uknown format specifier: %s',format(i))
