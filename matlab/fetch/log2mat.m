@@ -148,7 +148,7 @@ assignin('base','msgs',msgs);
 [folder, fileName, ~] = fileparts(filePath);
 
 hash = gitHashShort('log2mat');
-save(sprintf('%s/%_%d.mat',folder,fileName,hash), 'formats', 'msgsSeen', 'msgs');
+save(sprintf('%s/%s_%s.mat',folder,fileName,hash), 'formats', 'msgsSeen', 'msgs');
 
 close(mh);
 
