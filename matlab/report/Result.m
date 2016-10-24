@@ -5,8 +5,8 @@ classdef Result
     properties
         name = '';
         description = '';
-        id = '';
-        outcome = '';
+        id = 0;
+        outcome = false;
         value
         evidence = Evidence.empty;        
     end

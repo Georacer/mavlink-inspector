@@ -6,11 +6,13 @@ p = inputParser;
 p.addRequired('checkName',@isstr);
 p.parse(checkName);
 opts = p.Results;
-checkName = opts.id;
+checkName = opts.checkName;
 
 switch checkName
     case 'parseDate'
-        id = 1;        
+        id = 1;
+    case 'logName'
+        id = 2;
     otherwise
         error('Unknown check');
 end
