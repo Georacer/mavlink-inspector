@@ -16,7 +16,7 @@ for i=1:length(format)
     
     switch format(i)
         case {'b', 'B', 'h', 'H', 'i', 'I', 'q', 'Q'}
-            formatStr = [ formatStr 'd'];
+            formatStr = [ formatStr 'f']; % Converting to float because cell2str needs uniform data types to work on
         case {'f', 'c', 'C', 'e', 'E', 'L', 'd'}
             formatStr = [ formatStr 'f'];
         case {'n', 'N', 'Z', 'M'}
