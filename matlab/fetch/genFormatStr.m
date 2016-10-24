@@ -2,11 +2,12 @@ function [ formatStr ] = genFormatStr( format )
 %GENFORMATSTR Generate a format string for CSV parsing
 %   Detailed explanation goes here
 
-p = inputParser;
-p.addRequired('format',@isstr);
-p.parse(format);
-opts = p.Results;
-format = opts.format;
+% Commented out for speed reasons
+% p = inputParser;
+% p.addRequired('format',@isstr);
+% p.parse(format);
+% opts = p.Results;
+% format = opts.format;
 
 formatStr = zeros(1,2);
 formatStr = 's';

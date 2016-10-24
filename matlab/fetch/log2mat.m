@@ -4,6 +4,7 @@ function [ output_args ] = log2mat( id )
 
 % Remove this
 evalin('base','clear');
+profile off
 profile on
 
 p = inputParser;
@@ -31,11 +32,13 @@ msgsSeen = cell(0,1);
 
 [~,reply] = system(['wc -l ',which(filePath)]); % Number of lines in the log file
 reply = strsplit(reply,' ');
-fileLines = str2double(reply{1});
+fileLines = str2num(reply{1});
 mh = waitbar(0,'Parsing log');
 lineNum = 0;
 
-waitbarPeriod = floor(fileLines/100)
+waitbarPeriod = floor(fileLines/100);
+
+msgIndices = [];
 
 while true
     
@@ -61,17 +64,25 @@ while true
             % This is the FMT specification, already got it
         else
             newrow = cell(1,5);
-            newrow{1} = str2num(data{1}{2});
-            newrow{2} = str2num(data{1}{3});
-            newrow{3} = data{1}{4};
+            id = textscan(data{1}{2},'%d');
+            newrow{1} = id{1};
+            msgSize = textscan(data{1}{3},'%d');
+            newrow{2} = msgSize{1};
+            msgName = data{1}{4};
+            newrow{3} = msgName;
             newrow{4} = data{1}{5};
             newrow{5} = data{1}(6:end);
             formats(end+1,:) = newrow;
+            
+            [~,instances] = system(sprintf('grep ^%s, %s | wc -l',msgName, which(filePath))); % Number of lines in the log file
+            instances = str2double(instances);
+            eval(sprintf('%s=cell(%d,%d);',msgName,instances,length(data{1}{5})) );
+            msgIndices.(msgName)=1;
         end
         
     else
-        msgIndexC = strfind(formats(:,3), msgType);
-        msgIndex = find(not(cellfun('isempty', msgIndexC)));
+        msgIndexC = strcmp(formats(:,3), msgType);
+        msgIndex = find(msgIndexC);
         if msgIndex==0
             error(sprintf('Could not find format for message %s',msgType));
         end        
@@ -81,27 +92,36 @@ while true
         msgSize = length(formatStr)-1; % minus the initial msgType
         newrow = cell(1,msgSize);
         for i=2:length(formatStr)
-            if (formatStr(i)=='d') || (formatStr(i)=='f')
-                % field is numeric
-                newrow{i-1} = str2double(data{1}{i});
+            if (formatStr(i)=='d')
+                % field is integer
+                temp = textscan(data{1}{i},'%d');
+                newrow{i-1} = temp{1};
+            elseif (formatStr(i)=='f')
+                % field is float
+                temp = textscan(data{1}{i},'%f');
+                newrow{i-1} = temp{1};
             else
                 % field is string
                 newrow{i-1} = data{1}{i};
             end
-        end       
-        
-        if (exist(msgType)~=1)
-            eval(sprintf('%s=newrow;',msgType));
-            msgsSeen(end+1) = {msgType};
-        else
-            eval(sprintf('%s(end+1,:) = newrow;',msgType));
         end
         
+        tempInd = msgIndices.(msgType);
+        eval(sprintf('%s(%d,:) = newrow;',msgType, tempInd) );
+        msgIndices.(msgType) = msgIndices.(msgType)+1;
+         
     end
 
 end
 
 fclose(fh);
+
+names = formats(:,3);
+for i=1:length(names)
+    if  ~strcmp(names{i},'FMT') && msgIndices.(names{i})>1
+        msgsSeen(end+1)=names(i);
+    end
+end
 
 assignin('base','formats',formats);
 assignin('base','msgsSeen',msgsSeen);
