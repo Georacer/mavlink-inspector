@@ -4,3 +4,6 @@
 
 # Ignoring open files
 *.*~
+
+# Ignoring .mat files which are usually very large
+*.mat

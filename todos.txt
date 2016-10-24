@@ -1,8 +1,11 @@
-Add rudimentary reporting
+Add overview reporting
+* Scanned with version and gih hash ([ret, output] = system('git rev-list --all --count'))
 * SW version
 * Flight length
 * Date and time
 * Which messages were read and how many
+* Log size
+* Log name
 
 Add parameter checks
 
