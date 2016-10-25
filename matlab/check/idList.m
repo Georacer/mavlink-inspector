@@ -25,6 +25,8 @@ switch checkName
         id = 7;
     case 'fwStats'
         id = 8;
+    case 'logSize'
+        id = 9;
     otherwise
         error('Unknown check');
 end
