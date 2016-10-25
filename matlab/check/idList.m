@@ -19,6 +19,12 @@ switch checkName
         id = 4;
     case 'isUpdatedMat'
         id = 5;
+    case 'isUpdatedResult'
+        id = 6;
+    case 'msgStats'
+        id = 7;
+    case 'fwStats'
+        id = 8;
     otherwise
         error('Unknown check');
 end

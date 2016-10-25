@@ -3,10 +3,10 @@ classdef Series
     %   Detailed explanation goes here
     
     properties
-        series
-        names
-        x_labels
-        plot_cmd
+        series = [];
+        names = {};
+        x_labels = {};
+        plot_cmd = '';
     end
     
     methods
