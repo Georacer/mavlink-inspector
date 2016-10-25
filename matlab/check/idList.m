@@ -17,6 +17,8 @@ switch checkName
         id = 3;
     case 'gitHashShort'
         id = 4;
+    case 'isUpdatedMat'
+        id = 5;
     otherwise
         error('Unknown check');
 end
