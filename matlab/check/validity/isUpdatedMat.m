@@ -16,6 +16,7 @@ result = Result();
 result.name = 'isUpdatedMat';
 result.description = 'Checks if the input .mat file is generated with the latest log2mat script';
 result.id = idList(result.name);
+result.generator_hash = gitHashShort(result.name);
 
 result.value = 'N/A';
 result.outcome = outcome;

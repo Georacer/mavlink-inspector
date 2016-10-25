@@ -20,6 +20,7 @@ result = Result();
 result.name = 'gitBuild';
 result.description = 'Number of commits on the specified branch';
 result.id = idList(result.name);
+result.generator_hash = gitHashShort(result.name);
 
 result.value = commits;
 result.outcome = true;

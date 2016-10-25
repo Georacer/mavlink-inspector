@@ -7,6 +7,7 @@ result = Result();
 result.name = 'logName';
 result.description = 'Name of the processed log file';
 result.id = idList(result.name);
+result.generator_hash = gitHashShort(result.name);
 
 filePath = find_log(id);
 [~,fileName,ext] = fileparts(filePath);

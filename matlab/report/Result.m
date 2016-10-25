@@ -6,6 +6,7 @@ classdef Result
         name = '';
         description = '';
         id = 0;
+        generator_hash = '';
         outcome = false;
         value
         evidence = Evidence.empty;        
