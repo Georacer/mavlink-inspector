@@ -13,6 +13,22 @@ switch checkName
         id = 1;
     case 'logName'
         id = 2;
+    case 'gitBuild'
+        id = 3;
+    case 'gitHashShort'
+        id = 4;
+    case 'isUpdatedMat'
+        id = 5;
+    case 'isUpdatedResult'
+        id = 6;
+    case 'msgStats'
+        id = 7;
+    case 'fwStats'
+        id = 8;
+    case 'logSize'
+        id = 9;
+    case 'logDuration'
+        id = 10;
     otherwise
         error('Unknown check');
 end

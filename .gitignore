@@ -7,3 +7,7 @@
 
 # Ignoring log .mat files which are usually very large
 logs/*/*.mat
+
+# Ignoring parameter files - they are generated within the workspace
+*.param
+*.parm

@@ -3,13 +3,16 @@ classdef Series
     %   Detailed explanation goes here
     
     properties
-        series
-        names
-        plot_cmd
+        series = [];
+        names = {};
+        x_labels = {};
+        plot_cmd = '';
     end
     
     methods
-        plot(this)
+        function plot(this)
+            eval(this.plot_cmd);
+        end
     end
     
 end
