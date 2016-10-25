@@ -11,6 +11,7 @@ hash_log2mat = gitHashShort('log2mat');
 outcome = true;
 outcome = strcmp(hashMat,hash_log2mat);
 
+%%
 result = Result();
 
 result.name = 'isUpdatedMat';
