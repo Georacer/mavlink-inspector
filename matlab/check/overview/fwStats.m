@@ -2,20 +2,39 @@ function [ result ] = fwStats( MSGS )
 %UNTITLED Firmware related statistics
 %   Detailed explanation goes here
 
-stamp = MSGS{1,1};
-string = MSGS{1,2};
-swStringCell = strsplit(string,' ');
+types = {'ArduCopter', 'APM:Copter', 'ArduPlane', 'ArduRover'};
+name = '';
+value = [];
+triplet = '';
 
-name = swStringCell{1};
-version = swStringCell{2};
-gitHash = swStringCell{3};
-gitHash = gitHash(2:end-1);
+outcome = false;
 
-value = {name, version, gitHash};
+for i=1:size(MSGS,1)
+    
+    string = MSGS{i,2};
+    swStringCell = strsplit(string,' ');
+    
+    word1 = swStringCell{1};
+    
+    if ismember(word1,types)
+        name = word1;
+        version = swStringCell{2};
+        gitHash = swStringCell{3};
+        gitHash = gitHash(2:end-1);
+        
+        value = {name, version, gitHash};
+        outcome = true;
+        triplet = string;
+        stamp = MSGS{i,1};
+        break;
+    end      
+    
+end
+
 
 %%
 data = Series();
-data.series = string;
+data.series = triplet;
 
 %%
 evidence = Evidence();
@@ -32,7 +51,7 @@ result.id = idList(result.name);
 result.generator_hash = gitHashShort(result.name);
 
 result.value = value;
-result.outcome = true;
+result.outcome = outcome;
 result.evidence = evidence;
 
 

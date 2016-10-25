@@ -27,6 +27,8 @@ switch checkName
         id = 8;
     case 'logSize'
         id = 9;
+    case 'logDuration'
+        id = 10;
     otherwise
         error('Unknown check');
 end

@@ -1,9 +1,4 @@
 Add overview reporting
-* SW version
-* Flight length
-* Date and time
-* Log size
-* Log name
 
 Add parameter checks
 
