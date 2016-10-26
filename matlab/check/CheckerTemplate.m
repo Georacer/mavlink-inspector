@@ -24,11 +24,12 @@ classdef CheckerTemplate < Checker
             this.result.setHash(this); % Pass the test object to generate the result hash
         end
         % Printer
-        function output = print(this)
+        function output = printResult(this)
+            output = 'Placeholder';
             warning('Overload this function with a specialized print with a subclass'); % Fill in here
         end
         % Plotter
-        function plot(this)
+        function gh = plotResult(this)
             warning('Overload this function with a specialized plot with a subclass'); % Fill in here
         end
         

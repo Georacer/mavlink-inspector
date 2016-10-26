@@ -18,11 +18,12 @@ classdef Checker < handle
             warning('Overload this function with a specialized test with a subclass');
         end
         % Printer
-        function output = print(this)
+        function output = printResult(this)
+            output = '';
             warning('Overload this function with a specialized print with a subclass');
         end
         % Plotter
-        function plot(this)
+        function gh = plotResult(this)
             warning('Overload this function with a specialized plot with a subclass');
         end
         
