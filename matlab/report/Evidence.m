@@ -1,4 +1,4 @@
-classdef Evidence
+classdef Evidence < handle
     %EVIDENCE Evidence class definition
     %   Detailed explanation goes here
     

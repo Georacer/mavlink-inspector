@@ -9,18 +9,18 @@ opts = p.Results;
 checkName = opts.checkName;
 
 switch checkName
+    case 'checker'
+        id = 0;
     case 'parseDate'
         id = 1;
     case 'logName'
         id = 2;
     case 'gitBuild'
         id = 3;
-    case 'gitHashShort'
-        id = 4;
+        
     case 'isUpdatedMat'
         id = 5;
-    case 'isUpdatedResult'
-        id = 6;
+    
     case 'msgStats'
         id = 7;
     case 'fwStats'
@@ -29,6 +29,7 @@ switch checkName
         id = 9;
     case 'logDuration'
         id = 10;
+        
     otherwise
         error('Unknown check');
 end

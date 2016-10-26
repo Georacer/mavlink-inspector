@@ -141,14 +141,20 @@ for i=1:length(names)
     end
 end
 
+env.msgsSeen = msgsSeen;
+env.logId = id;
+
 assignin('base','formats',formats);
-assignin('base','msgsSeen',msgsSeen);
 assignin('base','msgs',msgs);
+assignin('base','evn',env);
+
+assignin('base','msgsSeen',msgsSeen);
+assignin('base','logID',id);
 
 [folder, fileName, ~] = fileparts(filePath);
 
 hash = gitHashShort('log2mat');
-save(sprintf('%s/%s_%s.mat',folder,fileName,hash), 'formats', 'msgsSeen', 'msgs');
+save(sprintf('%s/%s_%s.mat',folder,fileName,hash), 'env', 'formats', 'msgs');
 
 close(mh);
 
