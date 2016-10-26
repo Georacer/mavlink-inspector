@@ -6,3 +6,7 @@ Add static, hard constraint checks
 
 Add derived checks
 * revise existing flight/crash checks
+
+Porting
+* Port Pymavlink
+* Port LogAnalyzer

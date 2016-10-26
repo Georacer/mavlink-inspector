@@ -1,5 +1,5 @@
-classdef parseDate < Checker
-    %parseDate Date when this result was extracted
+classdef CheckerTemplate < Checker
+    %CHECKERTEMPLATE Template class for Checker test sublcasses
     %   Detailed explanation goes here
     
     properties
@@ -7,28 +7,29 @@ classdef parseDate < Checker
     
     methods
         % Constructor
-        function this = parseDate()
-            this.name = 'parseDate';
-            this.description = 'Date when this result was extracted';
+        function this = Checker() % Fill in here
+            this.name = 'testName'; % Fill in here
+            this.description = 'Test Description'; % Fill in here
             this.id = idList(this.name);
         end
         % Tester
         function test(this,msgs,formats,env)
-            value = datestr(datetime('now','Timezone','UTC'));
+            warning('Overload this function with a specialized test with a subclass'); % Fill in here
             
             this.result = Result();
                     
-            this.result.value = value;
-            this.result.outcome = true;
+            % this.result.value = 
+            % this.result.outcome = 
             % this.result.evidence = 
             this.result.setHash(this); % Pass the test object to generate the result hash
         end
         % Printer
         function output = printResult(this)
-            output = sprintf('Current date and time is %s UTC\n',this.result.value);
+            output = 'Placeholder';
+            warning('Overload this function with a specialized print with a subclass'); % Fill in here
         end
         % Plotter
-        function plotResult(this)
+        function gh = plotResult(this)
             warning('Overload this function with a specialized plot with a subclass'); % Fill in here
         end
         

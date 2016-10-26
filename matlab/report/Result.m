@@ -1,20 +1,19 @@
-classdef Result
+classdef Result < handle
     %RESULT Result class definition
     %   Detailed explanation goes here
     
     properties
-        name = '';
-        description = '';
-        id = 0;
         generator_hash = '';
         outcome = false;
-        value
+        value = 'N/A';
         evidence = Evidence.empty;        
     end
     
     methods
-        plot(this)
+        function setHash(this, ch)
+            this.generator_hash = gitHashShort(ch.name);
+        end
     end
-    
+
 end
 

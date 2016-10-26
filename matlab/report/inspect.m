@@ -1,16 +1,12 @@
-function [ ] = inspect( id, profile )
+function [ testVector ] = inspect( testVector, msgs, formats, env )
 %INSPECT Summary of this function goes here
 %   Detailed explanation goes here
 
-filePath = open_mat(id);
-
-param = open_params(id);
-
-result = parseDate();
-disp(sprintf('Log parsed in %s',result.value));
-
-result = logName(id);
-disp(sprintf('Log filename: %s',result.value));
-
+for i=1:length(testVector)
+    if testVector{i}.isUpToDate()
+        % Skip this test; Result is already available
+    else
+        testVector{i}.test(msgs,formats,env);
+    end
+    testVector{i}.printResult()
 end
-
