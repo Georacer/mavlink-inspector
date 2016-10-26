@@ -1,0 +1,8 @@
+Add overview reporting
+
+Add parameter checks
+
+Add static, hard constraint checks
+
+Add derived checks
+* revise existing flight/crash checks
