@@ -21,7 +21,7 @@ classdef logName < Checker
             this.result = Result();
                     
             this.result.value = log_name;
-            this.result.outcome = true;
+            this.result.outcome = 1;
             % this.result.evidence = 
             this.result.setHash(this); % Pass the test object to generate the result hash
         end

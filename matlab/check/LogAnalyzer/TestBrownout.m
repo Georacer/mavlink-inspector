@@ -31,14 +31,14 @@ classdef TestBrownout < Checker
             % BarAlt no longer a member of CTUN, replacing by BARO
             if index<1
                 value = 'No BARO log data, cannot decide';
-                outcome = -1;
+                outcome = -2;
             else 
                 finalAlt = msgs.BARO(end,index);
                 finalAltMax = 3;
                 
                 if lastArmState==1 && (finalAlt>finalAltMax)
                     value = sprintf('Log ends while armed and altitude %.2f',finalAlt);
-                    outcome = 0;
+                    outcome = -1;
                 else
                     value = 'No brownout detected';
                     outcome = 1;

@@ -19,7 +19,7 @@ classdef fwStats < Checker
             value = [];
             evidenceLine = '';
             
-            outcome = false;
+            outcome = -2;
             
             for i=1:size(msgs.MSG,1)
                 
@@ -35,7 +35,7 @@ classdef fwStats < Checker
                     gitHash = gitHash(2:end-1);
                     
                     value = {name, version, gitHash};
-                    outcome = true;
+                    outcome = 1;
                     evidenceLine = string;
                     stamp = msgs.MSG{i,1};
                     break;
@@ -63,7 +63,7 @@ classdef fwStats < Checker
         end
         % Printer
         function output = printResult(this)
-            if this.result.outcome
+            if this.result.outcome==1
                 output = sprintf(['Platform: %s\n'...
                                   'Version: %s\n'...
                                   'Git hash: %s\n'

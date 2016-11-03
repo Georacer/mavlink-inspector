@@ -28,14 +28,14 @@ classdef TestEmpty < Checker
             if index>1
                 maxThrottle = max(msgs.CTUN(:,index));
                 if maxThrottle<throttleThreshold
-                    outcome = 0;
+                    outcome = -1;
                     value = maxThrottle;
                 else
                     outcome = 1;
                     value = maxThrottle;
                 end
             else
-                outcome = -1;
+                outcome = -2;
                 value = [];
             end
             
@@ -62,9 +62,9 @@ classdef TestEmpty < Checker
         % Printer
         function output = printResult(this)
             switch this.result.outcome
-                case -1
+                case -2
                     output = 'No CTUN/ThrOut data found';
-                case 0
+                case -1
                     output = sprintf('Throttle never above 20% (%g)',this.result.value);
                 case 1
                     output = sprintf('Throttle maximum value is %g',this.result.value);

@@ -21,7 +21,12 @@ classdef isUpdatedMat < Checker
             
             hash_log2mat = gitHashShort('log2mat');
             
-            outcome = strcmp(hashMat,hash_log2mat); 
+            isUpdated = strcmp(hashMat,hash_log2mat); 
+            if isUpdated
+                outcome = 1;
+            else
+                outcome = -1;
+            end
             
             this.result = Result();
                     
@@ -33,7 +38,7 @@ classdef isUpdatedMat < Checker
         % Printer
         function output = printResult(this)
             output = '';
-            if this.result.outcome
+            if this.result.outcome==1
                 output = sprintf('The stored .mat file is up-to-date with the current log2mat function.');
             else
                 output = sprintf('The stored .mat file is NOT up-to-date with the current log2mat function.\nPlease re-generate it.');
