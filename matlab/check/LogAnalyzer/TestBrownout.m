@@ -26,12 +26,14 @@ classdef TestBrownout < Checker
                 lastArmState = msgs.ARM(end,2);
             end            
             
+            index =  getSeriesIndex(formats,'BARO','Alt');
+            
             % BarAlt no longer a member of CTUN, replacing by BARO
-            if ~ismember('BARO',env.msgsSeen)
+            if index<1
                 value = 'No BARO log data, cannot decide';
                 outcome = -1;
             else 
-                finalAlt = msgs.BARO(end,2);
+                finalAlt = msgs.BARO(end,index);
                 finalAltMax = 3;
                 
                 if lastArmState==1 && (finalAlt>finalAltMax)

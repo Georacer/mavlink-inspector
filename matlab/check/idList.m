@@ -33,6 +33,8 @@ switch checkName
         id = 11;
     case 'TestBrownout'
         id = 12;
+    case 'TestEmpty'
+        id = 13;
         
     otherwise
         error('Unknown check');
