@@ -1,10 +1,10 @@
 # mavlink-inspector
-Utilities for MAVLink log inspection
+Utilities for MAVLink and ArduPilot DataFlash log inspection
 
-`mavlink-inspector` is a package for processing and analyzing MAVLink logs. Currently, the development efforts are based on the MATLAB framework. Ports to other languages may be adopted in the future, as need arizes.
+`mavlink-inspector` is a package for processing and analyzing MAVLink logs as well as ArduPilot DataFlash logs. Currently, the development efforts are based on the MATLAB framework. Ports to other languages may be adopted in the future, as need arizes.
 
 ## Why MATLAB?
-Other tools exist for MAVLink log parsing and analysis. Notable examples are:
+Other tools exist for MAVLink and DataFlash log parsing and analysis. Notable examples are:
 * the Pymavlink toolbox, in Python
 * the MAVExplorer utility of the MAVProxy package, in Python
 * Dronekit's LogAnalyzer in C++
@@ -29,4 +29,4 @@ At the time, Pymavlink and Dronekit test functions are ported in and after that 
 TBA
 
 ## Licence
-The `mavlink-inspector` software project, which is a MAVLink log parser and processor, uses the [GPLv3 license](http://choosealicense.com/licenses/gpl-3.0/).
+The `mavlink-inspector` software project, which is a UAV flight log parser and processor, uses the [GPLv3 license](http://choosealicense.com/licenses/gpl-3.0/).
