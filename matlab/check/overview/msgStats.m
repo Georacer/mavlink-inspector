@@ -33,13 +33,13 @@ classdef msgStats < Checker
             data.names = {'Message Counter'};
             
             evidence = Evidence();
-            evidence.outcome = true;
+            evidence.outcome = 1;
             evidence.data = data;
             
             this.result = Result();
             
             this.result.value = sum(nonzero);
-            this.result.outcome = true;
+            this.result.outcome = 1;
             this.result.evidence = evidence;
             this.result.setHash(this); % Pass the test object to generate the result hash
         end
