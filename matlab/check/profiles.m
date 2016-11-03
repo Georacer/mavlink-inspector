@@ -9,7 +9,7 @@ opts = p.Results;
 profile = opts.profile;
 
 switch profile
-    case 'all'
+    case 'df-all'
         testVector = {gitBuild() logName() parseDate() logSize() logDuration() fwStats() isUpdatedMat() msgStats() };
     otherwise
         error('Unknown tests profile');
