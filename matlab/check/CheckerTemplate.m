@@ -16,11 +16,24 @@ classdef CheckerTemplate < Checker
         function test(this,msgs,formats,env)
             warning('Overload this function with a specialized test with a subclass'); % Fill in here
             
+            %% Complete with series data
+            % data = Series();
+            % data.series = [];
+            % data.names = {};
+            % data.x_labels = {};
+            
+            %% Complete with evidence
+            % evidence = Evidence();
+            % evidence.stamp_start = [];
+            % evidence.stamp_stop = [];
+            % evidence.data = data;
+            
+            %% Complete with result
             this.result = Result();
                     
             % this.result.value = 
             % this.result.outcome = 
-            % this.result.evidence = 
+            % this.result.evidence = evidence;
             this.result.setHash(this); % Pass the test object to generate the result hash
         end
         % Printer
