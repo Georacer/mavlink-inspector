@@ -1,20 +1,25 @@
-function [ index ] = getSeriesIndex( formats, message, column )
-%GETSERIESINDEX Return the index of the Column in Message
+function [ index ] = getSeriesIndex( formats, msgs, message, field )
+%GETSERIESINDEX Return the index of the Field in Message
 %   Detailed explanation goes here
 
 messageIndex = find(ismember(formats(:,3),message));
 if isempty(messageIndex)
     index = -1;
-    warning('Message %s not found',message);
+    warning('Message %s not declared in formats',message);
     return;
 end
-columnIndex = find(ismember(formats{messageIndex,end},column));
-if isempty(columnIndex)
+fieldIndex = find(ismember(formats{messageIndex,end},field));
+if isempty(fieldIndex)
     index = -2;
-    warning('Data type %s in message %s not found',column, message);
+    warning('Data type %s in message %s not found',field, message);
     return;
 end
-index = columnIndex;
+if isempty(msgs.('message'))
+    index = -3;
+    warning('%s message array is empty',message);
+    return;
+end
+index = fieldIndex;
 return
 
 end
