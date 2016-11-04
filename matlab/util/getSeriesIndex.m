@@ -14,7 +14,7 @@ if isempty(fieldIndex)
     warning('Data type %s in message %s not found',field, message);
     return;
 end
-if isempty(msgs.('message'))
+if isempty(msgs.(message))
     index = -3;
     warning('%s message array is empty',message);
     return;
