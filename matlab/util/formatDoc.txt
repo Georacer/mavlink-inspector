@@ -4,3 +4,25 @@ ARM: 8	14	'ARM'	'QBH'	'TimeUS'    'ArmState'  'ArmChecks'
 https://github.com/ArduPilot/ardupilot/blob/152edf71891146abc588b86e5f4149405b794da1/ArduPlane/Log.cpp#L413
     ArmState : (bool) The arming state (https://github.com/ArduPilot/ardupilot/blob/c808ee2f497e7a7a6d570632a3224e655b377323/libraries/AP_Arming/AP_Arming.cpp#L93)
     ArmChecks: (uint16) The check bitmask (https://github.com/ArduPilot/ardupilot/blob/c808ee2f497e7a7a6d570632a3224e655b377323/libraries/AP_Arming/AP_Arming.cpp#L98)
+
+CURR: "QhhhHfh","TimeUS,Throttle,Volt,Curr,Vcc,CurrTot,Volt2"
+https://github.com/ArduPilot/ardupilot/blob/43c7b4d5181eb31ec91a112b1add1bfe22941006/libraries/DataFlash/LogFile.cpp#L1640
+    Throttle: As recorded from autopilot (max 100 for Plane, max 1000 for copter)
+    Volt    : (100*Volts) Battery voltage
+    Curr    : (100*Amperes) Battery current draw
+    Vcc     : (1000*Amperes) Board voltage
+    CurrTot : (mAh) Total current draw
+    Volt2   : (100*Volts) Secondary battery voltage
+CURR: 168, 23, CURR, Qfff, TimeUS,Volt,Curr,CurrTot
+    Since   : ArduPlane 3.6.0, Copter 3.4.0 https://github.com/ArduPilot/ardupilot/commit/3ed2fafefa2981d9ea720b552ba405dbeae37eca
+https://github.com/ArduPilot/ardupilot/blob/3ed2fafefa2981d9ea720b552ba405dbeae37eca/libraries/DataFlash/LogFile.cpp#L1641
+    Volt    : (Volts) Battery voltage
+    Curr    : (Amperes) Battery current draw
+    CurrTot : (mAh) Total current draw
+
+POWR: "QffH","TimeUS,Vcc,VServo,Flags"
+    Since   : ArduPlane 3.6.0, Copter 3.4.0 https://github.com/ArduPilot/ardupilot/commit/7a397475afd868a806de37fe41249bc3f97d92a1#diff-50fc6924592925cd3572aff05385f2b2
+    Vcc     : (Volts) Board voltage
+    VServo  : (Volts) Servo rail voltage
+    Flags   : (bitmask) Power error flags https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0/common.xml#L1793
+                                          https://github.com/ArduPilot/ardupilot/blob/ArduPlane-3.6.0/libraries/AP_HAL_PX4/AnalogIn.cpp#L351
