@@ -11,6 +11,8 @@ profile = opts.profile;
 switch profile
     case 'df-all'
         testVector = {gitBuild() logName() parseDate() logSize() logDuration() fwStats() isUpdatedMat() msgStats() };
+    case 'log-analyzer-all'
+        testVector = {TestBrownout() TestEmpty() TestGPSGlitch() TestVCC() TestCompass() TestDupeLogData() TestIMUMatch()};
     otherwise
         error('Unknown tests profile');
 end

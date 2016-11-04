@@ -35,12 +35,10 @@ switch checkName
         id = 12;
     case 'TestEmpty'
         id = 13;
-    case 'TestEvents'
-        id = 14;
     case 'TestGPSGlitch'
-        id = 15;
+        id = 14;
     case 'TestVCC'
-        id = 16;
+        id = 15;
         
     otherwise
         error('Unknown check');
