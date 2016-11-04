@@ -14,17 +14,23 @@ classdef CheckerTemplate < Checker
         end
         % Tester
         function test(this,msgs,formats,env)
-            warning('Overload this function with a specialized test with a subclass'); % Fill in here
+            %% Initialize the result
+            this.result = Result();
+            this.result.setHash(this); % Pass the test object to generate the result hash
+            
             %% Check if the required data series are available
             
-            % msgSeriesIndex1 = getSeriesIndex(formats,reqMsg1,reqFld1);
+            % msgSeriesIndex = getSeriesIndex(formats,msgs,reqMsg1,reqFld1);
             % Add message dependencies here. Use the result to decide upon checking
             
             % Example handling of data series absence
-%             if msgSeriesIndex1 < 0
-%                 outcome = -2;
-%             end
+            % if msgSeriesIndex1 < 0
+            %     warning('Missing XXX data');
+            %     outcome = -2;
+            % end
             
+            %% Main code body
+            warning('Add to this function content with a specialized test code'); % Fill in here
             %% Complete with series data
             % data = Series();
             % data.series = [];
@@ -37,13 +43,11 @@ classdef CheckerTemplate < Checker
             % evidence.stamp_stop = [];
             % evidence.data = data;
             
-            %% Complete with result
-            this.result = Result();
+            %% Complete result
                     
             this.result.value = []; % Fill in here
             this.result.outcome = outcome; % Fill in here
             % this.result.evidence = evidence;
-            this.result.setHash(this); % Pass the test object to generate the result hash
         end
         % Printer
         function output = printResult(this)
