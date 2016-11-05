@@ -45,7 +45,7 @@ classdef CheckerTemplate < Checker
             %% Complete result
                     
             this.result.value = []; % Fill in here
-            this.result.outcome = outcome; % Fill in here
+            this.result.outcome = ; % Fill in here or delete if WARN(),FAIL(),MISS() functions are used
             % this.result.evidence = evidence;
         end
         % Printer

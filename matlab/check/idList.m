@@ -41,6 +41,8 @@ switch checkName
         id = 15;
     case 'TestCompass'
         id = 16;
+    case 'TestDupeLogData'
+        id = 17;
         
     otherwise
         error('Unknown check');
