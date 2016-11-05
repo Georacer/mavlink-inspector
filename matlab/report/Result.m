@@ -6,6 +6,7 @@ classdef Result < handle
         generator_hash = '';
         outcome = 1; % -2: Not enough data, -1: Failed, 0: Warning, 1: Pass
         value = 'N/A';
+        log = {};
         evidence = Evidence.empty;        
     end
     
