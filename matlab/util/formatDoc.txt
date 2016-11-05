@@ -26,3 +26,21 @@ POWR: "QffH","TimeUS,Vcc,VServo,Flags"
     VServo  : (Volts) Servo rail voltage
     Flags   : (bitmask) Power error flags https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0/common.xml#L1793
                                           https://github.com/ArduPilot/ardupilot/blob/ArduPlane-3.6.0/libraries/AP_HAL_PX4/AnalogIn.cpp#L351
+
+
+MAG: "QhhhhhhhhhBI", "TimeUS,MagX,MagY,MagZ,OfsX,OfsY,OfsZ,MOfsX,MOfsY,MOfsZ,Health"
+    Since           : ArduPlane 3.3.0, Copter-3.3-rc5 https://github.com/ArduPilot/ardupilot/commit/b0937154f5545d47749daa92cd19a4fbc261029d
+    mag_x           : (milliGauss) Compass magnetic field X https://github.com/ArduPilot/ardupilot/blob/c808ee2f497e7a7a6d570632a3224e655b377323/libraries/AP_Compass/AP_Compass.h#L119
+    mag_y           : (milliGauss) Compass magnetic field Y
+    mag_z           : (milliGauss) Compass magnetic field Z
+    offset_x        : (milliGauss) Compass offset X https://github.com/ArduPilot/ardupilot/blob/c808ee2f497e7a7a6d570632a3224e655b377323/libraries/AP_Compass/AP_Compass.h#L151
+    offset_y        : (milliGauss) Compass offset Y  
+    offset_z        : (milliGauss) Compass offset Z
+    motor_offset_x  : (milliGauss) Motor compensation offset X https://github.com/ArduPilot/ardupilot/blob/c808ee2f497e7a7a6d570632a3224e655b377323/libraries/AP_Compass/AP_Compass.h#L228
+    motor_offset_y  : (milliGauss) Motor compensation offset Y
+    motor_offset_z  : (milliGauss) Motor compensation offset Z
+    health          : (boolean) Compass health (last talked at most 500ms ago) https://github.com/ArduPilot/ardupilot/blob/c808ee2f497e7a7a6d570632a3224e655b377323/libraries/AP_Compass/AP_Compass.cpp#L602
+
+MAG: "QhhhhhhhhhBI", "TimeUS,MagX,MagY,MagZ,OfsX,OfsY,OfsZ,MOfsX,MOfsY,MOfsZ,Health,S"
+    Since   : ArduPlane 3.6.0, Copter 3.4.0 https://github.com/ArduPilot/ardupilot/commit/61da827c16266a50cd004355f79e4e2fbf38b91e
+    S       : (microSeconds) last update time
