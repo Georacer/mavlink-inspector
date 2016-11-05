@@ -2,7 +2,7 @@ classdef CheckerTemplate < Checker
     %CHECKERTEMPLATE Template class for Checker test sublcasses
     %   Detailed explanation goes here
     
-    properties
+    properties (Access = private)
     end
     
     methods
@@ -15,7 +15,6 @@ classdef CheckerTemplate < Checker
         % Tester
         function test(this,msgs,formats,env)
             %% Initialize the result
-            this.result = Result();
             this.result.setHash(this); % Pass the test object to generate the result hash
             
             %% Check if the required data series are available

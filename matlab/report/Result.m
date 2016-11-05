@@ -4,7 +4,7 @@ classdef Result < handle
     
     properties
         generator_hash = '';
-        outcome = -2; % -2: Not enough data, -1: Failed, 0: Warning, 1: Pass
+        outcome = 1; % -2: Not enough data, -1: Failed, 0: Warning, 1: Pass
         value = 'N/A';
         evidence = Evidence.empty;        
     end

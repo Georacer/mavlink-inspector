@@ -6,7 +6,7 @@ classdef Checker < handle
         name = 'checker';
         description = '';
         id = [];
-        result = Result.empty;
+        result = Result();
     end
     
     methods
@@ -36,6 +36,23 @@ classdef Checker < handle
                 hashGenerator = gitHashShort(this.name);
                 resp = strcmp(hashResult,hashGenerator);
             end
+        end
+        
+        % Set the result of the test to WARNING
+        function WARN(this)
+            if this.result.outcome>-1
+                this.result.outcome=0;
+            end
+        end
+        % Set the result of the test to FAILED
+        function FAIL(this)
+            if this.result.outcome>-2
+                this.result.outcome=-1;
+            end
+        end
+        % Set the result of the test to MISSING DATA
+        function MISS(this)
+            this.result.outcome=-2;
         end
     end
     

@@ -39,6 +39,8 @@ switch checkName
         id = 14;
     case 'TestVCC'
         id = 15;
+    case 'TestCompass'
+        id = 16;
         
     otherwise
         error('Unknown check');
