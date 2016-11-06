@@ -54,6 +54,10 @@ classdef Checker < handle
         function MISS(this)
             this.result.outcome=-2;
         end
+        % Append to the log file of the Result
+        function writeLog(this,logEntry)
+            this.result.log{end+1} = logEntry;
+        end
     end
     
 end

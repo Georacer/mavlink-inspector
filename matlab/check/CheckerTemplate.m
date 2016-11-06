@@ -23,9 +23,11 @@ classdef CheckerTemplate < Checker
             % Add message dependencies here. Use the result to decide upon checking
             
             % Example handling of data series absence
-            % if msgSeriesIndex1 < 0
-            %     warning('Missing XXX data');
-            %     outcome = -2;
+            % [MSGFieldIndex,logEntry] = getSeriesIndex(formats,msgs,'MSG','Field');
+            % if MSGFieldIndex < 0
+            %     this.writeLog(logEntry);
+            %     this.MISS();
+            %     return;
             % end
             
             %% Main code body
