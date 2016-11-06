@@ -43,6 +43,8 @@ switch checkName
         id = 16;
     case 'TestDupeLogData'
         id = 17;
+    case 'TestIMUMatch'
+        id = 18;
         
     otherwise
         error('Unknown check');

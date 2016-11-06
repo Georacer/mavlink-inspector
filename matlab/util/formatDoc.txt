@@ -44,3 +44,18 @@ MAG: "QhhhhhhhhhBI", "TimeUS,MagX,MagY,MagZ,OfsX,OfsY,OfsZ,MOfsX,MOfsY,MOfsZ,Hea
 MAG: "QhhhhhhhhhBI", "TimeUS,MagX,MagY,MagZ,OfsX,OfsY,OfsZ,MOfsX,MOfsY,MOfsZ,Health,S"
     Since   : ArduPlane 3.6.0, Copter 3.4.0 https://github.com/ArduPilot/ardupilot/commit/61da827c16266a50cd004355f79e4e2fbf38b91e
     S       : (microSeconds) last update time
+
+IMU: "QffffffIIfBB", "TimeUS,GyrX,GyrY,GyrZ,AccX,AccY,AccZ,ErrG,ErrA,Temp,GyHlt,AcHlt"
+    Since           : ArduPlane 3.5.1, Copter-3.4 https://github.com/ArduPilot/ardupilot/commit/121967d1b18a557b07bf741c044793dc1f5c1e9c
+                                                  https://github.com/ArduPilot/ardupilot/blob/c808ee2f497e7a7a6d570632a3224e655b377323/libraries/DataFlash/LogFile.cpp#L879
+    GyrX            : (UNKNOWN UNITS)
+    GyrY            : (UNKNOWN UNITS)
+    GyrZ            : (UNKNOWN UNITS)
+    AccX            : (UNKNOWN UNITS)
+    AccY            : (UNKNOWN UNITS)
+    AccZ            : (UNKNOWN UNITS)
+    ErrG            : (int) count of gyro errors
+    ErrA            : (int) count of accel errors
+    Temp            : (UNKNOWN UNITS)
+    GyHlt           : (boolean) Test if gyro errors have increased https://github.com/ArduPilot/ardupilot/blob/c808ee2f497e7a7a6d570632a3224e655b377323/libraries/AP_InertialSensor/AP_InertialSensor.cpp#L1055
+    AcHlt           : (boolean) Same as above

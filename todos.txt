@@ -6,5 +6,4 @@ Add derived checks
 * revise existing flight/crash checks
 
 Porting
-* Port Pymavlink
-* Port LogAnalyzer
+* Port Dronekit-LA
