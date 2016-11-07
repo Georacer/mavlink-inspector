@@ -93,7 +93,6 @@ classdef TestGPSGlitch < Checker
                     output = [];
                     error('Unknown outcome code');
             end
-            warning('Replace this function content with a specialized print'); % Delete this
         end
         % Plotter
         function gh = plotResult(this)

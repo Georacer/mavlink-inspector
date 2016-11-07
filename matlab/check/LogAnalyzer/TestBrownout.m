@@ -17,6 +17,7 @@ classdef TestBrownout < Checker
             
             outcome = false;
             value = [];
+            lastArmState = 0;
             
             %% Check based on EV message
             % EV message is no longer supported by DF, replacing by ARM
@@ -26,7 +27,7 @@ classdef TestBrownout < Checker
                 lastArmState = msgs.ARM(end,2);
             end            
             
-            index =  getSeriesIndex(formats,'BARO','Alt');
+            index =  getSeriesIndex(formats,msgs,'BARO','Alt');
             
             % BarAlt no longer a member of CTUN, replacing by BARO
             if index<1

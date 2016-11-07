@@ -1,5 +1,27 @@
 Documentation for message fields
 
+Format characters in the format string for binary log messages
+  b   : int8_t
+  B   : uint8_t
+  h   : int16_t
+  H   : uint16_t
+  i   : int32_t
+  I   : uint32_t
+  f   : float
+  d   : double
+  n   : char[4]
+  N   : char[16]
+  Z   : char[64]
+  c   : int16_t * 100
+  C   : uint16_t * 100
+  e   : int32_t * 100
+  E   : uint32_t * 100
+  L   : int32_t latitude/longitude
+  M   : uint8_t flight mode
+  q   : int64_t
+  Q   : uint64_t
+
+
 ARM: 8	14	'ARM'	'QBH'	'TimeUS'    'ArmState'  'ArmChecks'
 https://github.com/ArduPilot/ardupilot/blob/152edf71891146abc588b86e5f4149405b794da1/ArduPlane/Log.cpp#L413
     ArmState : (bool) The arming state (https://github.com/ArduPilot/ardupilot/blob/c808ee2f497e7a7a6d570632a3224e655b377323/libraries/AP_Arming/AP_Arming.cpp#L93)

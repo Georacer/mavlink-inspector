@@ -23,7 +23,7 @@ classdef TestEmpty < Checker
                 throttleThreshold = 200;
             end            
             
-            index = getSeriesIndex(formats,'CTUN','ThrOut');
+            index = getSeriesIndex(formats,msgs,'CTUN','ThrOut');
             
             if index>1
                 maxThrottle = max(msgs.CTUN(:,index));

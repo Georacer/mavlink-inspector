@@ -103,7 +103,7 @@ classdef TestIMUMatch < Checker
                 yDiff = imu(i,3) - imu2(imu2Index,3);
                 zDiff = imu(i,4) - imu2(imu2Index,4);
                 
-                tempVect(i,:) = [t imu(i,2) imu2(imu2Index,1)];
+                tempVect(i,:) = [t imu(i,2) imu2(imu2Index,1) imu2(imu2Index,2)];
                 
                 xDiffFiltered = xDiffFiltered + (xDiff-xDiffFiltered)*dt/filter_tc;
                 yDiffFiltered = yDiffFiltered + (yDiff-yDiffFiltered)*dt/filter_tc;
