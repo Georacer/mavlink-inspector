@@ -73,9 +73,7 @@ classdef TestIMUMatch < Checker
             yDiffFiltered = 0;
             zDiffFiltered = 0;
             maxDiffFiltered = 0;
-            
-            tempVect = zeros(length(imu),4);
-            
+                        
             for i=1:length(imu)
                 t = imu(i,1);
                 if last_t==0
@@ -103,8 +101,6 @@ classdef TestIMUMatch < Checker
                 yDiff = imu(i,3) - imu2(imu2Index,3);
                 zDiff = imu(i,4) - imu2(imu2Index,4);
                 
-                tempVect(i,:) = [t imu(i,2) imu2(imu2Index,1) imu2(imu2Index,2)];
-                
                 xDiffFiltered = xDiffFiltered + (xDiff-xDiffFiltered)*dt/filter_tc;
                 yDiffFiltered = yDiffFiltered + (yDiff-yDiffFiltered)*dt/filter_tc;
                 zDiffFiltered = zDiffFiltered + (zDiff-zDiffFiltered)*dt/filter_tc;
@@ -113,9 +109,7 @@ classdef TestIMUMatch < Checker
                 
                 last_t = t;
             end
-            
-            assignin('base','xAccDiff',tempVect);
-            
+                        
             if maxDiffFiltered > fail_threshold
                 this.writeLog('Difference above fail threshold');
                 this.FAIL();
