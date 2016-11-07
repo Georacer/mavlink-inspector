@@ -19,7 +19,7 @@ classdef gitBuild < Checker
             
             this.result = Result();
                     
-            this.result.value = reply;
+            this.result.value = reply(1:end-1); % Last character is EOL
             this.result.outcome = 1;
             % result.evidence = 
             this.result.setHash(this); % Pass the test object to generate the result hash

@@ -9,8 +9,10 @@ opts = p.Results;
 profile = opts.profile;
 
 switch profile
+    case 'df-overview'
+        testVector = {logName() parseDate() logDate() logSize() logDuration() fwStats() msgStats()};
     case 'df-all'
-        testVector = {gitBuild() logName() parseDate() logSize() logDuration() fwStats() isUpdatedMat() msgStats() };
+        testVector = [{gitBuild() isUpdatedMat()} profiles('df-overview')];
     case 'log-analyzer-all'
         testVector = {TestBrownout() TestEmpty() TestGPSGlitch() TestVCC() TestCompass() TestDupeLogData() TestIMUMatch()};
     otherwise
