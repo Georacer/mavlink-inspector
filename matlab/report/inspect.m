@@ -8,5 +8,5 @@ for i=1:length(testVector)
     else
         testVector{i}.test(msgs,formats,env);
     end
-    testVector{i}.printResult()
+%     testVector{i}.printResult()
 end
