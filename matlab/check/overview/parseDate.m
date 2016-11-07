@@ -1,25 +1,39 @@
-function [ result ] = parseDate( GPS )
-%PARSEDATE Date and time of the first GPS lock
-%   Detailed explanation goes here
-
-lockIndex = find(GPS(:,4),1,'first');
-
-GPS_week_lock = GPS(lockIndex,4);
-GPS_sec_lock = GPS(lockIndex,3)/1000;
-CPU_usec_lock = GPS(lockIndex,1);
-
-datenum = gps2utc(datetime(ws2gps(GPS_week_lock,GPS_sec_lock)));
-
-%%
-result = Result();
-
-result.name = 'parseDate';
-result.description = 'Date when this result was extracted';
-result.id = idList(result.name);
-result.generator_hash = gitHashShort(result.name);
-
-result.value = [datenum CPU_usec_lock];
-result.outcome = true;
-
+classdef parseDate < Checker
+    %parseDate Date when this result was extracted
+    %   Detailed explanation goes here
+    
+    properties
+    end
+    
+    methods
+        % Constructor
+        function this = parseDate()
+            this.name = 'parseDate';
+            this.description = 'Date when this result was extracted';
+            this.id = idList(this.name);
+            this.result = Result(); % Keep this initialization here; Matlab seems to go haywire if it is dynamically allocated inside `test`
+        end
+        % Tester
+        function test(this,msgs,formats,env)
+            this.result.logName = this.name;
+            value = datestr(datetime('now','Timezone','UTC'));
+            
+            this.result = Result();
+                    
+            this.result.value = value;
+            this.result.outcome = 1;
+            % this.result.evidence = 
+            this.result.setHash(this); % Pass the test object to generate the result hash
+        end
+        % Printer
+        function output = printResult(this)
+            output = sprintf('Current date and time is %s UTC',this.result.value);
+        end
+        % Plotter
+        function plotResult(this)
+            warning('Overload this function with a specialized plot with a subclass'); % Fill in here
+        end
+        
+    end
+    
 end
-

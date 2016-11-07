@@ -1,0 +1,29 @@
+gitBuild: Short git hash of the current branch
+The git hash of the mavlink-inspector test suite is ecc3ce0bb1572ee10ec1ec831372ac4e43d69f93
+
+isUpdatedMat: Check if the .mat file is up to date
+The stored .mat file is up-to-date with the current log2mat function.
+
+logName: Name of the current log
+Examining log 68.BIN
+
+parseDate: Date when this result was extracted
+Current date and time is 07-Nov-2016 22:32:47 UTC
+
+logDate: Date when the log was recorded
+The log was recorded on 05-Oct-2016 08:33:08 UTC
+
+logSize: Name of the current log
+Log file size is 60304 kilobytes
+
+logDuration: Duration between first and last timestamp
+The duration of the log file, based on CPU timestamps is 1472.45 seconds
+
+fwStats: Firmware related statistics
+Platform: ArduPlane
+Version: V3.5.2
+Git hash: dc9d87fd
+
+msgStats: Statistics on parsed messages
+Log contains 47 different message types
+

@@ -1,0 +1,255 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Use the Log Analyzer checks &mdash; mavlink-inspector 0.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="mavlink-inspector 0.2 documentation" href="../index.html"/>
+        <link rel="up" title="Examples" href="index.html"/>
+        <link rel="next" title="Use the Overview checks" href="overviewChecks.html"/>
+        <link rel="prev" title="Load a .log file" href="LoadLog.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../index.html" class="icon icon-home"> mavlink-inspector
+        
+
+        
+        </a>
+
+        
+          
+          
+            <div class="version">
+              0.2
+            </div>
+          
+        
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="LoadLog.html">Load a DataFlash log file</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Perform the LogAnalyzer tests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#invoking-the-test-vector">Invoking the test vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#a-few-more-words-on-the-tests">A few more words on the tests</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="overviewChecks.html">Perform ovierview checks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributors.html">Contributors</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">mavlink-inspector</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Examples</a> &raquo;</li>
+      
+    <li>Use the Log Analyzer checks</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="use-the-log-analyzer-checks">
+<h1>Use the Log Analyzer checks<a class="headerlink" href="#use-the-log-analyzer-checks" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://github.com/ArduPilot/ardupilot/tree/master/Tools/LogAnalyzer">Log Analyzer</a> is a Python toolbox, part of the ArduPilot project, used to parse and perform rudimentary tests on DataFlash log files, primarily for ArduCopter logs.</p>
+<p>The tests relevant to the AruPlane logs have been ported in <cite>mavlink-inspector</cite> and can be invoked from within it.</p>
+<div class="section" id="invoking-the-test-vector">
+<h2>Invoking the test vector<a class="headerlink" href="#invoking-the-test-vector" title="Permalink to this headline">¶</a></h2>
+<p>On your MATLAB terminal, type</p>
+<div class="highlight-matlab"><div class="highlight"><pre><span class="n">generateReport</span><span class="p">(</span><span class="s">&#39;log-analyzer-all&#39;</span><span class="p">,</span><span class="n">msgs</span><span class="p">,</span><span class="n">formats</span><span class="p">,</span><span class="n">env</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After the script returns, a cleartext report <cite>.txt</cite> file with the name <cite>report_log-analyzer-all.txt</cite> will have been created alongside your DataFlash log. Open it to read the test results.</p>
+<p>An example output is</p>
+<div class="highlight-text"><div class="highlight"><pre>TestBrownout: Test for a log that has been truncated in flight - Ported from ArduPilot LogAnalyzer
+No brownout detected | Warning: This check is discouraged - barometer drift may affect results
+
+TestEmpty: Test for empty or near-empty logs - Ported from ArduPilot LogAnalyzer
+PASSED: Throttle maximum value is 75
+
+TestGPSGlitch: Test for GPS glitch reporting or bad GPS data (satellite count, hdop) - Ported from ArduPilot LogAnalyzer
+PASSED: Min Satellites: 7 | Max HDop: 1.06
+
+TestVCC: Test for VCC within recommendations, or abrupt end to log in flight - Ported from ArduPilot LogAnalyzer
+PASSED: Vcc is within bounds
+
+TestCompass: Test for compass offsets and throttle interference - Ported from ArduPilot LogAnalyzer
+FAILED: | Measured magnetic field out of bounds
+
+TestDupeLogData: Test for duplicated data in log, which has been happening on PX4/Pixhawk - Ported from ArduPilot LogAnalyzer
+FAILED: Duplicate data found in the log
+
+TestIMUMatch: Test compatibility between IMU1 and IMU2 - Ported from ArduPilot LogAnalyzer
+PASSED: Mismatch: 0.468257, WARN: 0.75, FAIL: 1.5
+</pre></div>
+</div>
+</div>
+<div class="section" id="a-few-more-words-on-the-tests">
+<h2>A few more words on the tests<a class="headerlink" href="#a-few-more-words-on-the-tests" title="Permalink to this headline">¶</a></h2>
+<p><cite>log-analyzer-all</cite> is a test profile name, passed to the <cite>profiles</cite> script, which is tasked to create a predefined set of tests (in this case, all the tests ported from LogAnalyzer). Each test is an object of a specialized test class.</p>
+<p>Each test is passed the <cite>msgs</cite> variable, containing all the messages extraced from the log, the <cite>formats</cite> variable, containing the message definitions and the <cite>env</cite> variable, containing auxiliary data.</p>
+<p>The input variables are parsed separately by each test, each time the test method <cite>test</cite> is invoked.</p>
+<p>The test result is stored inside the test property (member) <cite>result</cite>.</p>
+<p>The test result can be printed by invoking the <cite>printResult</cite> method.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="overviewChecks.html" class="btn btn-neutral float-right" title="Use the Overview checks" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="LoadLog.html" class="btn btn-neutral" title="Load a .log file" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>Except where otherwise noted, this documentation is licensed under <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC Attribution-Share Alike 3.0 Unported</a>.</p>
+
+<div style="float:right;"><a href="https://github.com/Georacer/mavlink-inspector/issues/new?title=Use%20the%20Log%20Analyzer%20checks%20-%20&body=URL:%20../examples/LogAnalyzer%0ATitle:%20Use%20the%20Log%20Analyzer%20checks%0A%0APlease%20update%20this%20description%20and%20the%20issue%20title">Page bug</a></div>
+
+    <p>
+
+    </p>
+  </div>
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

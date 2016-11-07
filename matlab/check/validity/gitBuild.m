@@ -1,29 +1,38 @@
-function [ result ] = gitBuild( allCommits )
-%GITBUILD Return the number of commits in the repo
-%   For use in versioning control
-
-if nargin<1
-    allCommits = false;
+classdef gitBuild < Checker
+    %GITBUILD Short git hash of the current branch
+    %   Used for stamping of test results
+    
+    properties
+    end
+    
+    methods
+        % Constructor
+        function this = gitBuild()
+            this.name = 'gitBuild';
+            this.description = 'Short git hash of the current branch';
+            this.id = idList(this.name);
+        end
+        % Tester
+        function test(this,msgs,formats,env)
+            [~,reply] = system(sprintf('git rev-parse HEAD'));
+            hash = reply(1:7);
+            
+            this.result = Result();
+                    
+            this.result.value = reply(1:end-1); % Last character is EOL
+            this.result.outcome = 1;
+            % result.evidence = 
+            this.result.setHash(this); % Pass the test object to generate the result hash
+        end
+        % Printer
+        function output = printResult(this)
+            output = sprintf('The git hash of the mavlink-inspector test suite is %s',this.result.value);
+        end
+        % Plotter
+        function plotResult(this)
+            warning('Overload this function with a specialized plot with a subclass');
+        end
+        
+    end
+    
 end
-
-if allCommits
-    branch = '--all';
-else
-    branch = 'HEAD';
-end    
-
-[~,reply] = system(sprintf('git rev-list --count %s',branch));
-commits = str2num(reply);
-
-result = Result();
-
-result.name = 'gitBuild';
-result.description = 'Number of commits on the specified branch';
-result.id = idList(result.name);
-result.generator_hash = gitHashShort(result.name);
-
-result.value = commits;
-result.outcome = true;
-
-end
-
