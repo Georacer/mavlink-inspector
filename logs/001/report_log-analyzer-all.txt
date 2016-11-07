@@ -1,0 +1,21 @@
+TestBrownout: Test for a log that has been truncated in flight - Ported from ArduPilot LogAnalyzer
+No brownout detected | Warning: This check is discouraged - barometer drift may affect results
+
+TestEmpty: Test for empty or near-empty logs - Ported from ArduPilot LogAnalyzer
+PASSED: Throttle maximum value is 68
+
+TestGPSGlitch: Test for GPS glitch reporting or bad GPS data (satellite count, hdop) - Ported from ArduPilot LogAnalyzer
+PASSED: Min Satellites: 8 | Max HDop: 1.21
+
+TestVCC: Test for VCC within recommendations, or abrupt end to log in flight - Ported from ArduPilot LogAnalyzer
+WARNING: Vcc min/max difference is 0.43V with threshold 0.3V
+
+TestCompass: Test for compass offsets and throttle interference - Ported from ArduPilot LogAnalyzer
+PASSED: Compass checks successful
+
+TestDupeLogData: Test for duplicated data in log, which has been happening on PX4/Pixhawk - Ported from ArduPilot LogAnalyzer
+PASSED: No duplicate data found
+
+TestIMUMatch: Test compatibility between IMU1 and IMU2 - Ported from ArduPilot LogAnalyzer
+PASSED: Mismatch: 0.605451, WARN: 0.75, FAIL: 1.5
+

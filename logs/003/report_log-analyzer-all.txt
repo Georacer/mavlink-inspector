@@ -1,0 +1,18 @@
+TestBrownout: Test for a log that has been truncated in flight - Ported from ArduPilot LogAnalyzer
+Log ends while armed and altitude 3.69 | Warning: This check is discouraged - barometer drift may affect results
+
+TestEmpty: Test for empty or near-empty logs - Ported from ArduPilot LogAnalyzer
+PASSED: Throttle maximum value is 75
+
+TestGPSGlitch: Test for GPS glitch reporting or bad GPS data (satellite count, hdop) - Ported from ArduPilot LogAnalyzer
+FAILED: Min Satellites: 0 | Max HDop: 99.99
+
+TestVCC: Test for VCC within recommendations, or abrupt end to log in flight - Ported from ArduPilot LogAnalyzer
+ERROR: The required data could not be procured
+
+TestCompass: Test for compass offsets and throttle interference - Ported from ArduPilot LogAnalyzer
+FAILED: | Magnetic offset parameters out of bounds | Magnetic offset message data out of bounds | Measured magnetic field out of bounds
+
+TestDupeLogData: Test for duplicated data in log, which has been happening on PX4/Pixhawk - Ported from ArduPilot LogAnalyzer
+PASSED: No duplicate data found
+
