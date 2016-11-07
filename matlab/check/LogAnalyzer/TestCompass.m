@@ -12,7 +12,7 @@ classdef TestCompass < Checker
         % Constructor
         function this = TestCompass()
             this.name = 'TestCompass';
-            this.description = 'Test for compass offsets and throttle interference';
+            this.description = 'Test for compass offsets and throttle interference - Ported from ArduPilot LogAnalyzer';
             this.id = idList(this.name);
         end
         % Tester

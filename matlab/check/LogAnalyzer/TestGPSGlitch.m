@@ -9,7 +9,7 @@ classdef TestGPSGlitch < Checker
         % Constructor
         function this = TestGPSGlitch()
             this.name = 'TestGPSGlitch';
-            this.description = 'Test for GPS glitch reporting or bad GPS data (satellite count, hdop)';
+            this.description = 'Test for GPS glitch reporting or bad GPS data (satellite count, hdop) - Ported from ArduPilot LogAnalyzer';
             this.id = idList(this.name);
         end
         % Tester

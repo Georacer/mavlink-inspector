@@ -9,7 +9,7 @@ classdef TestEmpty < Checker
         % Constructor
         function this = TestEmpty()
             this.name = 'TestEmpty';
-            this.description = 'Test for empty or near-empty logs';
+            this.description = 'Test for empty or near-empty logs - Ported from ArduPilot LogAnalyzer';
             this.id = idList(this.name);
         end
         % Tester
@@ -63,11 +63,11 @@ classdef TestEmpty < Checker
         function output = printResult(this)
             switch this.result.outcome
                 case -2
-                    output = 'No CTUN/ThrOut data found';
+                    output = 'ERROR: No CTUN/ThrOut data found';
                 case -1
-                    output = sprintf('Throttle never above 20% (%g)',this.result.value);
+                    output = sprintf('FAILED: Throttle never above 20% (%g)',this.result.value);
                 case 1
-                    output = sprintf('Throttle maximum value is %g',this.result.value);
+                    output = sprintf('PASSED: Throttle maximum value is %g',this.result.value);
                 otherwise
                     output = [];
                     error('Undefined result code');

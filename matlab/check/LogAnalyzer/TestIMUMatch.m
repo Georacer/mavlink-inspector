@@ -9,7 +9,7 @@ classdef TestIMUMatch < Checker
         % Constructor
         function this = TestIMUMatch()
             this.name = 'TestIMUMatch';
-            this.description = 'Test compatibility between IMU1 and IMU2';
+            this.description = 'Test compatibility between IMU1 and IMU2 - Ported from ArduPilot LogAnalyzer';
             this.id = idList(this.name);
         end
         % Tester

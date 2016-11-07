@@ -9,7 +9,7 @@ classdef TestVCC < Checker
         % Constructor
         function this = TestVCC()
             this.name = 'TestVCC';
-            this.description = 'Test for VCC within recommendations, or abrupt end to log in flight';
+            this.description = 'Test for VCC within recommendations, or abrupt end to log in flight - Ported from ArduPilot LogAnalyzer';
             this.id = idList(this.name);
         end
         % Tester

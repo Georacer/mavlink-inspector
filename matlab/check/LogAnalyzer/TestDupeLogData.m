@@ -9,7 +9,7 @@ classdef TestDupeLogData < Checker
         % Constructor
         function this = TestDupeLogData()
             this.name = 'TestDupeLogData';
-            this.description = 'Test for duplicated data in log, which has been happening on PX4/Pixhawk'; % Fill in here
+            this.description = 'Test for duplicated data in log, which has been happening on PX4/Pixhawk - Ported from ArduPilot LogAnalyzer';
             this.id = idList(this.name);
         end
         % Tester
