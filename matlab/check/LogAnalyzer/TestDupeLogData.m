@@ -11,11 +11,13 @@ classdef TestDupeLogData < Checker
             this.name = 'TestDupeLogData';
             this.description = 'Test for duplicated data in log, which has been happening on PX4/Pixhawk - Ported from ArduPilot LogAnalyzer';
             this.id = idList(this.name);
+            this.result = Result();
         end
         % Tester
         function test(this,msgs,formats,env)
             %% Initialize the result
             this.result.setHash(this); % Pass the test object to generate the result hash
+            this.result.logName = this.name;
             
             %% Check if the required data series are available
             

@@ -3,6 +3,7 @@ classdef Result < handle
     %   Detailed explanation goes here
     
     properties
+        logName = '';
         generator_hash = '';
         outcome = 1; % -2: Not enough data, -1: Failed, 0: Warning, 1: Pass
         value = 'N/A';

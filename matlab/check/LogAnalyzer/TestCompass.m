@@ -14,11 +14,13 @@ classdef TestCompass < Checker
             this.name = 'TestCompass';
             this.description = 'Test for compass offsets and throttle interference - Ported from ArduPilot LogAnalyzer';
             this.id = idList(this.name);
+            this.result = Result();
         end
         % Tester
         function test(this,msgs,formats,env)
             %% Initialize the result
             this.result.setHash(this); % Pass the test object to generate the result hash
+            this.result.logName = this.name;
             
             %% Check if the required data series are available
             
@@ -162,7 +164,7 @@ classdef TestCompass < Checker
                     if ~this.test3pass
                         text = [text ' | Measured magnetic field out of bounds'];
                     end
-                    output = sprintf('FAILED:%s\n',text);
+                    output = sprintf('FAILED:%s',text);
                 case 0
                     text = '';
                     if ~this.test1pass
@@ -174,7 +176,7 @@ classdef TestCompass < Checker
                     if ~this.test3pass
                         text = [text ' | Measured magnetic field out of bounds'];
                     end
-                    output = sprintf('WARNING:%s\n',text);
+                    output = sprintf('WARNING:%s',text);
                 case 1
                     output = sprintf('PASSED: Compass checks successful');
                 otherwise

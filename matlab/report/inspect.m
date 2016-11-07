@@ -4,8 +4,9 @@ function [ testVector ] = inspect( testVector, msgs, formats, env )
 
 for i=1:length(testVector)
     if testVector{i}.isUpToDate()
-        % Skip this test; Result is already available
+        fprintf('%s result already available and up-to-date\n',testVector{i}.name);
     else
+        fprintf('Testing for %s check\n',testVector{i}.name);
         testVector{i}.test(msgs,formats,env);
     end
 %     testVector{i}.printResult()

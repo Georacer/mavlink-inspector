@@ -6,7 +6,7 @@ classdef Checker < handle
         name = 'checker';
         description = '';
         id = [];
-        result = Result();
+        result = Result.empty();
     end
     
     methods

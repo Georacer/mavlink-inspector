@@ -11,11 +11,13 @@ classdef TestIMUMatch < Checker
             this.name = 'TestIMUMatch';
             this.description = 'Test compatibility between IMU1 and IMU2 - Ported from ArduPilot LogAnalyzer';
             this.id = idList(this.name);
+            this.result = Result();
         end
         % Tester
         function test(this,msgs,formats,env)
             %% Initialize the result
             this.result.setHash(this); % Pass the test object to generate the result hash
+            this.result.logName = this.name;
             
             %% Check if the required data series are available
             

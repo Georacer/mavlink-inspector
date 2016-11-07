@@ -11,9 +11,13 @@ classdef TestEmpty < Checker
             this.name = 'TestEmpty';
             this.description = 'Test for empty or near-empty logs - Ported from ArduPilot LogAnalyzer';
             this.id = idList(this.name);
+            this.result = Result();
         end
         % Tester
-        function test(this,msgs,formats,env)
+        function test(this,msgs,formats,env)            
+            %% Initialize the result
+            this.result.setHash(this); % Pass the test object to generate the result hash
+            this.result.logName = this.name;
             
             throttleThreshold = 20;
             
@@ -52,12 +56,10 @@ classdef TestEmpty < Checker
             % evidence.data = data;
             
             %% Complete with result
-            this.result = Result();
                     
             this.result.value = value;
             this.result.outcome = outcome;
             % this.result.evidence = evidence;
-            this.result.setHash(this); % Pass the test object to generate the result hash
         end
         % Printer
         function output = printResult(this)

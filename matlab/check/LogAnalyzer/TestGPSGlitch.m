@@ -11,9 +11,14 @@ classdef TestGPSGlitch < Checker
             this.name = 'TestGPSGlitch';
             this.description = 'Test for GPS glitch reporting or bad GPS data (satellite count, hdop) - Ported from ArduPilot LogAnalyzer';
             this.id = idList(this.name);
+            this.result = Result();
         end
         % Tester
         function test(this,msgs,formats,env)
+            %% Initialize the result            
+            this.result.setHash(this); % Pass the test object to generate the result hash
+            this.result.logName = this.name;
+            
             outcome = 1;
             %% Check if the required data series are available
             
@@ -70,13 +75,10 @@ classdef TestGPSGlitch < Checker
             % evidence.stamp_stop = [];
             % evidence.data = data;
             
-            %% Complete with result
-            this.result = Result();
-                    
+            %% Complete with result                    
             this.result.value = [minSats, maxHDop];
             this.result.outcome = outcome;
             % this.result.evidence = evidence;
-            this.result.setHash(this); % Pass the test object to generate the result hash
         end
         % Printer
         function output = printResult(this)
@@ -84,11 +86,11 @@ classdef TestGPSGlitch < Checker
                 case -2
                     output = 'ERROR: The required data could not be procured';
                 case -1
-                    output = sprintf('FAILED: Min Satellites: %d | Max HDop: %g',this.result.value(1), this.result.value(2)); % Fill in here
+                    output = sprintf('FAILED: Min Satellites: %d | Max HDop: %g',this.result.value(1), this.result.value(2));
                 case 0
-                    output = sprintf('WARNING: Min Satellites: %d | Max HDop: %g',this.result.value(1), this.result.value(2)); % FIll in here
+                    output = sprintf('WARNING: Min Satellites: %d | Max HDop: %g',this.result.value(1), this.result.value(2));
                 case 1
-                    output = sprintf('PASSED: Min Satellites: %d | Max HDop: %g',this.result.value(1), this.result.value(2)); % Fill in here
+                    output = sprintf('PASSED: Min Satellites: %d | Max HDop: %g',this.result.value(1), this.result.value(2));
                 otherwise
                     output = [];
                     error('Unknown outcome code');

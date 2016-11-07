@@ -11,11 +11,13 @@ classdef CheckerTemplate < Checker
             this.name = 'testName'; % Fill in here
             this.description = 'Test Description'; % Fill in here
             this.id = idList(this.name);
+            this.result = Result(); % Keep this initialization here; Matlab seems to go haywire if it is dynamically allocated inside `test`
         end
         % Tester
         function test(this,msgs,formats,env)
             %% Initialize the result
             this.result.setHash(this); % Pass the test object to generate the result hash
+            this.result.logName = this.name;
             
             %% Check if the required data series are available
             

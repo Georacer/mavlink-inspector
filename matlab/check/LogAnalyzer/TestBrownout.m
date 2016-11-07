@@ -11,9 +11,12 @@ classdef TestBrownout < Checker
             this.name = 'TestBrownout';
             this.description = 'Test for a log that has been truncated in flight - Ported from ArduPilot LogAnalyzer';
             this.id = idList(this.name);
+            this.result = Result();
         end
         % Tester
-        function test(this,msgs,formats,env)
+        function test(this,msgs,formats,env)            
+            this.result.setHash(this); % Pass the test object to generate the result hash
+            this.result.logName = this.name;
             
             outcome = false;
             value = [];
@@ -58,13 +61,10 @@ classdef TestBrownout < Checker
             evidence.stamp_stop = msgs.BARO(end,2);
             evidence.data = data;
             
-            %% Complete with result
-            this.result = Result();
-                    
+            %% Complete with result                    
             this.result.value = value;
             this.result.outcome = outcome;
             this.result.evidence = evidence;
-            this.result.setHash(this); % Pass the test object to generate the result hash
         end
         
         % Printer

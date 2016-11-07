@@ -11,13 +11,13 @@ classdef TestVCC < Checker
             this.name = 'TestVCC';
             this.description = 'Test for VCC within recommendations, or abrupt end to log in flight - Ported from ArduPilot LogAnalyzer';
             this.id = idList(this.name);
+            this.result = Result();
         end
         % Tester
         function test(this,msgs,formats,env)
-            %% Initialize result            
-            this.result = Result();
-                    
+            %% Initialize result
             this.result.setHash(this); % Pass the test object to generate the result hash
+            this.result.logName = this.name;
             
             %% Check if the required data series are available
             
@@ -33,7 +33,7 @@ classdef TestVCC < Checker
                 vccMin = min(msgs.CURR(:,CURRVccIndex))/1000;
                 vccMax = max(msgs.CURR(:,CURRVccIndex))/1000;             
             else
-                this.result.outcome = -2;
+                this.MISS();
                 return;
             end
             
@@ -44,10 +44,10 @@ classdef TestVCC < Checker
             value = [vccMax vccMin];
             
             if vccDiff > vccMaxDiff
-                outcome = 0;
+                this.WARN();
             end
             if vccMin < vccMinThreshold
-                outcome = -1;
+                this.FAIL();
             end
             
             %% Complete with series data
@@ -64,7 +64,6 @@ classdef TestVCC < Checker
             
             %% Complete result
             this.result.value = value;
-            this.result.outcome = outcome; % Fill in here
             % this.result.evidence = evidence;
         end
         % Printer
