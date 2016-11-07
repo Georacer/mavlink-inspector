@@ -11,9 +11,12 @@ classdef msgStats < Checker
             this.name = 'msgStats';
             this.description = 'Statistics on parsed messages';
             this.id = idList(this.name);
+            this.result = Result(); % Keep this initialization here; Matlab seems to go haywire if it is dynamically allocated inside `test`
         end
         % Tester
         function test(this,msgs,formats,env)
+            this.result.logName = this.name;
+            
             names = fieldnames(msgs);
             
             nonzero = zeros(1,length(names));
@@ -36,8 +39,6 @@ classdef msgStats < Checker
             evidence.outcome = 1;
             evidence.data = data;
             
-            this.result = Result();
-            
             this.result.value = sum(nonzero);
             this.result.outcome = 1;
             this.result.evidence = evidence;
@@ -45,7 +46,7 @@ classdef msgStats < Checker
         end
         % Printer
         function output = printResult(this)
-            output = sprintf('Log contains %d different message types\n',this.result.value);
+            output = sprintf('Log contains %d different message types',this.result.value);
         end
         % Plotter
         function gh = plotResult(this)

@@ -9,11 +9,14 @@ classdef logDate < Checker
         % Constructor
         function this = logDate()
             this.name = 'logDate';
-            this.description = 'Date when the log was recorded'; % Fill in here
+            this.description = 'Date when the log was recorded';
             this.id = idList(this.name);
+            this.result = Result(); % Keep this initialization here; Matlab seems to go haywire if it is dynamically allocated inside `test`
         end
         % Tester
         function test(this,msgs,formats,env)
+            %% Initialize the result
+            this.result.logName = this.name;
             lockIndex = find(msgs.GPS(:,4),1,'first');
             
             GPS_week_lock = msgs.GPS(lockIndex,4);
@@ -21,9 +24,7 @@ classdef logDate < Checker
             CPU_usec_lock = msgs.GPS(lockIndex,1);
             
             datenum = gps2utc(datetime(ws2gps(GPS_week_lock,GPS_sec_lock)));
-            
-            this.result = Result();
-                    
+                                
             this.result.value = [datenum CPU_usec_lock];
             this.result.outcome = 1;
             % this.result.evidence = 

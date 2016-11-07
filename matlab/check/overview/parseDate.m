@@ -11,9 +11,11 @@ classdef parseDate < Checker
             this.name = 'parseDate';
             this.description = 'Date when this result was extracted';
             this.id = idList(this.name);
+            this.result = Result(); % Keep this initialization here; Matlab seems to go haywire if it is dynamically allocated inside `test`
         end
         % Tester
         function test(this,msgs,formats,env)
+            this.result.logName = this.name;
             value = datestr(datetime('now','Timezone','UTC'));
             
             this.result = Result();
@@ -25,7 +27,7 @@ classdef parseDate < Checker
         end
         % Printer
         function output = printResult(this)
-            output = sprintf('Current date and time is %s UTC\n',this.result.value);
+            output = sprintf('Current date and time is %s UTC',this.result.value);
         end
         % Plotter
         function plotResult(this)

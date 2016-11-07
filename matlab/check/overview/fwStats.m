@@ -11,9 +11,13 @@ classdef fwStats < Checker
             this.name = 'fwStats';
             this.description = 'Firmware related statistics';
             this.id = idList(this.name);
+            this.result = Result(); % Keep this initialization here; Matlab seems to go haywire if it is dynamically allocated inside `test`
         end
         % Tester
         function test(this,msgs,formats,env)
+            %% Initialize the result
+            this.result.logName = this.name;
+            
             types = {'ArduCopter', 'APM:Copter', 'ArduPlane', 'ArduRover'};
             name = '';
             value = [];
@@ -53,9 +57,7 @@ classdef fwStats < Checker
             evidence.stamp_stop = stamp;
             evidence.data = data;
             
-            %%
-            this.result = Result();
-            
+            %%            
             this.result.value = value;
             this.result.outcome = outcome;
             this.result.evidence = evidence;
@@ -66,7 +68,7 @@ classdef fwStats < Checker
             if this.result.outcome==1
                 output = sprintf(['Platform: %s\n'...
                                   'Version: %s\n'...
-                                  'Git hash: %s\n'
+                                  'Git hash: %s'
                                   ]...
                                  ,this.result.value{1},this.result.value{2},this.result.value{3});
             else

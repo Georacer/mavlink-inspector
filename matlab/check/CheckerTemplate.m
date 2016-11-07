@@ -16,8 +16,7 @@ classdef CheckerTemplate < Checker
         % Tester
         function test(this,msgs,formats,env)
             %% Initialize the result
-            this.result.setHash(this); % Pass the test object to generate the result hash
-            this.result.logName = this.name;
+            this.result.logName = this.name; % This is used for debugging purposes
             
             %% Check if the required data series are available
             
@@ -51,6 +50,7 @@ classdef CheckerTemplate < Checker
             this.result.value = []; % Fill in here
             this.result.outcome = ; % Fill in here or delete if WARN(),FAIL(),MISS() functions are used
             % this.result.evidence = evidence;
+            this.result.setHash(this); % Pass the test object to generate the result hash, last action before returning
         end
         % Printer
         function output = printResult(this)

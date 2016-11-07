@@ -11,15 +11,16 @@ classdef logSize < Checker
             this.name = 'logSize';
             this.description = 'Name of the current log';
             this.id = idList(this.name);
+            this.result = Result(); % Keep this initialization here; Matlab seems to go haywire if it is dynamically allocated inside `test`
         end
         % Tester
         function test(this,msgs,formats,env)
+            this.result.logName = this.name;
+            
             filePath = find_log(env.logID);
             f = dir(filePath);
             log_size = f.bytes;
             
-            this.result = Result();
-                    
             this.result.value = log_size;
             this.result.outcome = 1;
             % this.result.evidence = 
@@ -27,7 +28,7 @@ classdef logSize < Checker
         end
         % Printer
         function output = printResult(this)
-            output = sprintf('Log file size is %d kilobytes\n',this.result.value/1024);
+            output = sprintf('Log file size is %d kilobytes',this.result.value/1024);
         end
         % Plotter
         function plotResult(this)

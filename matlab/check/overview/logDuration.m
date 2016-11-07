@@ -11,9 +11,11 @@ classdef logDuration < Checker
             this.name = 'logDuration';
             this.description = 'Duration between first and last timestamp';
             this.id = idList(this.name);
+            this.result = Result(); % Keep this initialization here; Matlab seems to go haywire if it is dynamically allocated inside `test`
         end
         % Tester
         function test(this,msgs,formats,env)
+            this.result.logName = this.name;
             
             names = fieldnames(msgs);
             
@@ -39,9 +41,7 @@ classdef logDuration < Checker
             end
             
             value = (lastStamp-firstStamp)/1000000;
-            
-            this.result = Result();
-                    
+                                
             this.result.value = value;
             this.result.outcome = 1;
             % this.result.evidence = 
@@ -49,7 +49,7 @@ classdef logDuration < Checker
         end
         % Printer
         function output = printResult(this)
-            output = sprintf('The duration of the log file, based on CPU timestamps is %g seconds\n',this.result.value);
+            output = sprintf('The duration of the log file, based on CPU timestamps is %g seconds',this.result.value);
         end
         % Plotter
         function plotResult(this)

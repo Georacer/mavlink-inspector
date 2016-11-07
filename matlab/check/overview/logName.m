@@ -11,9 +11,12 @@ classdef logName < Checker
             this.name = 'logName';
             this.description = 'Name of the current log';
             this.id = idList(this.name);
+            this.result = Result(); % Keep this initialization here; Matlab seems to go haywire if it is dynamically allocated inside `test`
         end
         % Tester
         function test(this,msgs,formats,env)
+            this.result.logName = this.name;
+            
             filePath = find_log(env.logID);
             [~,fileName,ext] = fileparts(filePath);
             log_name = sprintf('%s%s',fileName,ext);
@@ -27,7 +30,7 @@ classdef logName < Checker
         end
         % Printer
         function output = printResult(this)
-            output = sprintf('Examining log %s\n',this.result.value);
+            output = sprintf('Examining log %s',this.result.value);
         end
         % Plotter
         function plotResult(this)
