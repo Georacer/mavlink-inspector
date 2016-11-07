@@ -1,4 +1,4 @@
-function [ output_args ] = log2mat( id )
+function [ output_args ] = log2mat( logID )
 %LOG2MAT Parse a log file and save it as .mat
 %   Detailed explanation goes here
 
@@ -9,14 +9,14 @@ profile on
 
 p = inputParser;
 p.addRequired('id',@(x) (x>0)&(mod(x,1)==0));
-p.parse(id);
+p.parse(logID);
 opts = p.Results;
-id = opts.id;
+logID = opts.id;
 
-key = sprintf('logs/%03d/*.log',id);
+key = sprintf('logs/%03d/*.log',logID);
 file = dir(key);
 
-filePath = sprintf('logs/%03d/%s',id,file.name);
+filePath = sprintf('logs/%03d/%s',logID,file.name);
 
 fh = fopen(filePath);
 
@@ -142,14 +142,11 @@ for i=1:length(names)
 end
 
 env.msgsSeen = msgsSeen;
-env.logId = id;
+env.logID = logID;
 
 assignin('base','formats',formats);
 assignin('base','msgs',msgs);
-assignin('base','evn',env);
-
-assignin('base','msgsSeen',msgsSeen);
-assignin('base','logID',id);
+assignin('base','env',env);
 
 [folder, fileName, ~] = fileparts(filePath);
 
