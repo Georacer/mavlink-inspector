@@ -1,0 +1,268 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Welcome to the documentation of mavlink-inspector &mdash; mavlink-inspector 0.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="mavlink-inspector 0.2 documentation" href="#"/>
+        <link rel="next" title="Examples" href="examples/index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="#" class="icon icon-home"> mavlink-inspector
+        
+
+        
+        </a>
+
+        
+          
+          
+            <div class="version">
+              0.2
+            </div>
+          
+        
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributors.html">Contributors</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">mavlink-inspector</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="#">Docs</a> &raquo;</li>
+      
+    <li>Welcome to the documentation of mavlink-inspector</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="welcome-to-the-documentation-of-mavlink-inspector">
+<h1>Welcome to the documentation of mavlink-inspector<a class="headerlink" href="#welcome-to-the-documentation-of-mavlink-inspector" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="utilities-for-mavlink-log-inspection">
+<h2>Utilities for MAVLink log inspection<a class="headerlink" href="#utilities-for-mavlink-log-inspection" title="Permalink to this headline">¶</a></h2>
+<p><cite>mavlink-inspector</cite> is a package for processing and analyzing MAVLink logs as well as ArduPilot DataFlash logs. Currently, the development efforts are based on the MATLAB framework. Ports to other languages may be adopted in the future, as need arizes.
+Developoment efforts are targeted around the ArduPlane firmware. ArduCopter and ArduRover are not supported.</p>
+</div>
+<div class="section" id="why-use-matlab">
+<h2>Why Use MATLAB?<a class="headerlink" href="#why-use-matlab" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Other tools exist for MAVLink log parsing and analysis. Notable examples are:</dt>
+<dd><ul class="first last simple">
+<li>the ArduPilot LogAnalyzer toolbox, for DataFlash logs, in Python</li>
+<li>the MAVExplorer utility of the MAVProxy package, in Python</li>
+<li>Dronekit&#8217;s LogAnalyzer (Dronekit-LA), for MAVLink and DataFlash logs, in C++</li>
+</ul>
+</dd>
+</dl>
+<p>On the one hand, I am not adequately familiar with Python to use it for rapid development. On the other hand, C++, while fast, it is simply too cumbersome for code prototyping.
+Contrarily, I am fluent in MATLAB and, to be honest, nothing can beat it for churning out working algorithms quickly.</p>
+</div>
+<div class="section" id="workflow">
+<h2>Workflow<a class="headerlink" href="#workflow" title="Permalink to this headline">¶</a></h2>
+<p>The basis of the workflow is the transcript of a <cite>.bin</cite> or <cite>.tlog</cite> log file, which usually has a <cite>.log</cite> ending. This is a simple <cite>.csv</cite> file.
+Each flight log is given a separate folder under the <cite>logs</cite> directory.</p>
+<p>This is then parsed to produce the <cite>.mat</cite> data file, containing the message arrays and other helper variables.</p>
+<p>The <cite>.mat</cite> file is finally loaded into the workspace and its contents are parsed by the various test functions.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<div class="last line-block">
+<div class="line"><strong>How about Mission Planner&#8217;s &#8220;convert to .mat&#8221;?</strong></div>
+<div class="line">Mission Planner has a utility to conver a <cite>.bin</cite> file to a <cite>.mat</cite> file, but sadly it does not carry string fields over. Instead, the messages containing strings (such as MSG) are converted to <cite>double</cite> arrays with the strings replaced with 0.</div>
+</div>
+</div>
+<p>Afterwords, the message arrays are parsed to extract information and statistics. The data is not processed in one pass. Instead separate functions go over the data separately.</p>
+</div>
+<div class="section" id="a-quick-example">
+<h2>A Quick Example<a class="headerlink" href="#a-quick-example" title="Permalink to this headline">¶</a></h2>
+<p>You can find instructions for running the ArduPilot&#8217;s LogAnalyzer tests on an example dataset in the <a class="reference external" href="examples/index.html">Examples</a> section.</p>
+</div>
+<div class="section" id="current-progress">
+<h2>Current Progress<a class="headerlink" href="#current-progress" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="log-types">
+<h3>Log types<a class="headerlink" href="#log-types" title="Permalink to this headline">¶</a></h3>
+<p>Initially, only ArduPlane DataFlash logs (<cite>.bin</cite>) will be supported. MAVLink logs (<cite>.tlog</cite>) support will follow.</p>
+</div>
+<div class="section" id="available-tests">
+<h3>Available tests<a class="headerlink" href="#available-tests" title="Permalink to this headline">¶</a></h3>
+<p>At the time, ArduPilot&#8217;s LogAnalyzer test functions are ported in.
+Afterwards, Dronekit-LA will be ported and after that new tests will be developed.</p>
+</div>
+</div>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>In order to utilize <cite>mavlink-inspector</cite> you need both Windows and Linux environments, and the following software:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://ardupilot.org/planner/docs/mission-planner-overview.html">Mission Planner</a>, available on Windows.</li>
+<li>A <strong>Linux</strong> MATLAB installation</li>
+<li>Git installed in your Linux environment</li>
+</ul>
+</div>
+<div class="section" id="instructions-for-use">
+<h2>Instructions for Use<a class="headerlink" href="#instructions-for-use" title="Permalink to this headline">¶</a></h2>
+<p>TBA</p>
+</div>
+<div class="section" id="licence">
+<h2>Licence<a class="headerlink" href="#licence" title="Permalink to this headline">¶</a></h2>
+<p>The <cite>mavlink-inspector</cite> software project, which is a MAVLink log parser and processor, uses the <a class="reference external" href="http://choosealicense.com/licenses/gpl-3.0/">GPLv3 license</a>.</p>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="examples/index.html" class="btn btn-neutral float-right" title="Examples" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>Except where otherwise noted, this documentation is licensed under <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC Attribution-Share Alike 3.0 Unported</a>.</p>
+
+<div style="float:right;"><a href="https://github.com/Georacer/mavlink-inspector/issues/new?title=Welcome%20to%20the%20documentation%20of%20mavlink-inspector%20-%20&body=URL:%20./index%0ATitle:%20Welcome%20to%20the%20documentation%20of%20mavlink-inspector%0A%0APlease%20update%20this%20description%20and%20the%20issue%20title">Page bug</a></div>
+
+    <p>
+
+    </p>
+  </div>
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

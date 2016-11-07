@@ -1,0 +1,294 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Load a .log file &mdash; mavlink-inspector 0.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="mavlink-inspector 0.2 documentation" href="../index.html"/>
+        <link rel="up" title="Examples" href="index.html"/>
+        <link rel="next" title="Use the Log Analyzer checks" href="LogAnalyzer.html"/>
+        <link rel="prev" title="Examples" href="index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../index.html" class="icon icon-home"> mavlink-inspector
+        
+
+        
+        </a>
+
+        
+          
+          
+            <div class="version">
+              0.2
+            </div>
+          
+        
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Load a DataFlash log file</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#create-a-new-log-directory">Create a new log directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#convert-the-dataflash-log">Convert the DataFlash log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#import-the-log-to-the-workspace">Import the log to the workspace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#what-you-can-do-from-here">What you can do from here</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#already-converted-the-log-file">Already converted the <cite>.log</cite> file?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="LogAnalyzer.html">Perform the LogAnalyzer tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overviewChecks.html">Perform ovierview checks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributors.html">Contributors</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">mavlink-inspector</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Examples</a> &raquo;</li>
+      
+    <li>Load a .log file</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="load-a-log-file">
+<h1>Load a .log file<a class="headerlink" href="#load-a-log-file" title="Permalink to this headline">¶</a></h1>
+<p>This example shows you how to load a DataFlash log file into your MATLAB workspace.</p>
+<p>You need a binary DataFlash log file (with the <cite>.BIN</cite> extension).</p>
+<div class="section" id="create-a-new-log-directory">
+<h2>Create a new log directory<a class="headerlink" href="#create-a-new-log-directory" title="Permalink to this headline">¶</a></h2>
+<p>Under the <cite>logs</cite> directory of the <cite>mavlink-inspector</cite> folder, create a new folder for your log. The folder name <strong>must</strong> be a 3 character number, with padded zeros, e.g. 045.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>It is advisable that you start your log numbering from a high offset, so that when new logs are added upstream on the <cite>mavlink-inspector</cite> repository, there will be no merge conflicts if you try to pull a newer version.</p>
+<p class="last">The number 501 should be a good starting index for your log folder names.</p>
+</div>
+<p>Place your binary DataFlash log file inside that folder.</p>
+</div>
+<div class="section" id="convert-the-dataflash-log">
+<h2>Convert the DataFlash log<a class="headerlink" href="#convert-the-dataflash-log" title="Permalink to this headline">¶</a></h2>
+<p>Currently, <a class="reference external" href="http://ardupilot.org/planner/docs/mission-planner-overview.html">Mission Planner</a> is used to convert DataFlash logs into ASCII <cite>.csv</cite> files, which <cite>mavlink-inspector</cite> is able to parse. Mission Planner is free software but is available only on Windows. Even though this is a limiting factor, there currently is no alternative method of log conversion.</p>
+<p>Open Mission Planner and navigate to the <cite>DataFlash Logs</cite> tab. Click the <cite>PX4 .Bin to .Log</cite> button and navigate to the location of your log file, inside the <cite>mavlink-inspector</cite> directory tree.</p>
+<div class="figure">
+<img alt="../_images/loadLogMP1.png" src="../_images/loadLogMP1.png" />
+</div>
+<p>Wait until the conversion is finished. This may take a while, depending on the size of the log file.</p>
+<div class="figure">
+<img alt="../_images/loadLogMP2.png" src="../_images/loadLogMP2.png" />
+</div>
+<p>The clear-text log file, should have the extension <cite>.log</cite> and be stored alongside your <cite>.BIN</cite> log file.</p>
+</div>
+<div class="section" id="import-the-log-to-the-workspace">
+<h2>Import the log to the workspace<a class="headerlink" href="#import-the-log-to-the-workspace" title="Permalink to this headline">¶</a></h2>
+<p>Open MATLAB and navigate to the <cite>mavlink-inspector</cite> directory.</p>
+<p>On the MATLAB console, add all the subfolders on the current path, if they are not already added</p>
+<div class="highlight-matlab"><div class="highlight"><pre><span class="n">matlabAddFolders</span>
+</pre></div>
+</div>
+<p>Use the <cite>log2mat</cite> script to convert the <cite>&lt;logIndex&gt;.log</cite> into MATLAB variables. For this part, let&#8217;s assume that your log index is 1.</p>
+<div class="highlight-matlab"><div class="highlight"><pre><span class="n">log2mat</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A waitbar will appear, tracking the parsing progres. This operation may take several minutes for large logs.</p>
+<p>After the conversion is complete, a few variables will have appeared in your workspace:</p>
+<ul>
+<li><p class="first"><cite>formats</cite>, a cell array containing the DataFlash log protocol definition, as provided at the start of the log file.</p>
+</li>
+<li><p class="first"><cite>msgs</cite>, a struct with either cell or numerical array members. Each member will be named after a message type and will contain all the messages of this type that appear in the log, one per line.</p>
+</li>
+<li><dl class="first docutils">
+<dt><cite>env</cite>, a struct with members:</dt>
+<dd><ul class="first last simple">
+<li><cite>logID</cite>, containing the parsed log file index</li>
+<li><cite>msgsSeen</cite>, a cell array containing the names of the messages which appeared at least once in the log file</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>A <cite>.mat</cite> file, containing those variables will also be saved in your log directory automatically.</p>
+<p>These 3 files are the core data containers for all the algorithms provided by <cite>mavlink-inspector</cite>.</p>
+</div>
+<div class="section" id="what-you-can-do-from-here">
+<h2>What you can do from here<a class="headerlink" href="#what-you-can-do-from-here" title="Permalink to this headline">¶</a></h2>
+<p>You can now apply the provided checks and algorithms on the newly-created variables. You can follow these tutorials next:</p>
+<ul class="simple">
+<li><a class="reference external" href="LogAnalyzer.html">ArduPilot&#8217;s LogAnalyzer tutorial</a></li>
+<li><a class="reference external" href="overviewChecks.html">Overview checks</a></li>
+</ul>
+</div>
+<div class="section" id="already-converted-the-log-file">
+<h2>Already converted the <cite>.log</cite> file?<a class="headerlink" href="#already-converted-the-log-file" title="Permalink to this headline">¶</a></h2>
+<p>If you have converted the DataFlash <cite>.log</cite> file once and created the corresponding <cite>.mat</cite> file, you don&#8217;t have to re-parse it the next time you want to work with it.</p>
+<p>You can type</p>
+<div class="highlight-matlab"><div class="highlight"><pre><span class="n">open_mat</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>to load the already saved <cite>.mat</cite> file. This doesn&#8217;t take more than a few moments to load.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><cite>.gitignore</cite> is set to not track the <cite>.mat</cite> files, because they are very large and potentially changing, overloading the repository Git with very large deltas.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="LogAnalyzer.html" class="btn btn-neutral float-right" title="Use the Log Analyzer checks" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Examples" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>Except where otherwise noted, this documentation is licensed under <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC Attribution-Share Alike 3.0 Unported</a>.</p>
+
+<div style="float:right;"><a href="https://github.com/Georacer/mavlink-inspector/issues/new?title=Load%20a%20.log%20file%20-%20&body=URL:%20../examples/LoadLog%0ATitle:%20Load%20a%20.log%20file%0A%0APlease%20update%20this%20description%20and%20the%20issue%20title">Page bug</a></div>
+
+    <p>
+
+    </p>
+  </div>
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
