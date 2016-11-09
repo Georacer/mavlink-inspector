@@ -3,7 +3,8 @@ classdef Series < handle
     %   Detailed explanation goes here
     
     properties
-        series = [];
+        series = {};
+        x_axis = {};
         names = {};
         x_labels = {};
     end

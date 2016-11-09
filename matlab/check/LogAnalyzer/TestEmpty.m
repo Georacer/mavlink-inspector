@@ -16,21 +16,29 @@ classdef TestEmpty < Checker
         % Tester
         function test(this,msgs,formats,env)            
             %% Initialize the result
-            this.result.setHash(this); % Pass the test object to generate the result hash
             this.result.logName = this.name;
+            %% Check if the required data series are available
+                       
+            check1DataOK = true;
+            [CTUNThrOutIndex,logEntry] = getSeriesIndex(formats,msgs,'CTUN','ThrOut');
+            if CTUNThrOutIndex < 0
+                this.writeLog(logEntry);
+                this.MISS();
+                check1DataOK = false;
+            end
             
-            throttleThreshold = 20;
+            %% Main code body
+            if check1DataOK            
             
-            platformTest = fwStats();
-            platformTest.test(msgs,formats,env);
-            if strcmp(platformTest.result.value{1},'ArduCopter')
-                throttleThreshold = 200;
-            end            
-            
-            index = getSeriesIndex(formats,msgs,'CTUN','ThrOut');
-            
-            if index>1
-                maxThrottle = max(msgs.CTUN(:,index));
+                throttleThreshold = 20;
+                
+                platformTest = fwStats();
+                platformTest.test(msgs,formats,env);
+                if strcmp(platformTest.result.value{1},'ArduCopter')
+                    throttleThreshold = 200;
+                end
+                
+                maxThrottle = max(msgs.CTUN(:,CTUNThrOutIndex));
                 if maxThrottle<throttleThreshold
                     outcome = -1;
                     value = maxThrottle;
@@ -38,28 +46,28 @@ classdef TestEmpty < Checker
                     outcome = 1;
                     value = maxThrottle;
                 end
-            else
-                outcome = -2;
-                value = [];
+                
+                %% Complete with series data
+                data = Series();
+                data.series = {msgs.CTUN(:,CTUNThrOutIndex) throttleThreshold*[1 1]};
+                data.x_axis = {msgs.CTUN(:,1) [msgs.CTUN(1,1) msgs.CTUN(end,1)]};
+                data.names = {'msgs.CTUN.ThrOut' 'Minimum throttle threshold'};
+                % data.x_labels = {};
+                
+                %% Complete with evidence
+                evidence = Evidence();
+                evidence.stamp_start = msgs.CTUN(1,1);
+                evidence.stamp_stop = msgs.CTUN(end,1);
+                evidence.data = data;
+                
+                %% Complete with result
+                
+                this.result.value = value;
+                this.result.outcome = outcome;
+                this.result.evidence = evidence;
             end
             
-            %% Complete with series data
-            % data = Series();
-            % data.series = [];
-            % data.names = {};
-            % data.x_labels = {};
-            
-            %% Complete with evidence
-            % evidence = Evidence();
-            % evidence.stamp_start = [];
-            % evidence.stamp_stop = [];
-            % evidence.data = data;
-            
-            %% Complete with result
-                    
-            this.result.value = value;
-            this.result.outcome = outcome;
-            % this.result.evidence = evidence;
+            this.result.setHash(this); % Pass the test object to generate the result hash
         end
         % Printer
         function output = printResult(this)
@@ -77,7 +85,15 @@ classdef TestEmpty < Checker
         end
         % Plotter
         function gh = plotResult(this)
-            warning('Overload this function with a specialized plot with a subclass'); % Fill in here
+            if this.result.outcome>-2                
+                gh = figure();
+                plot(this.result.evidence.data.x_axis{1}, this.result.evidence.data.series{1});                
+                hold on;
+                stairs(this.result.evidence.data.x_axis{2}, this.result.evidence.data.series{2},'r');
+                legend(this.result.evidence.data.names);
+            else
+                error('Cannot plot while missing data');
+            end
         end
         
     end

@@ -17,9 +17,7 @@ classdef parseDate < Checker
         function test(this,msgs,formats,env)
             this.result.logName = this.name;
             value = datestr(datetime('now','Timezone','UTC'));
-            
-            this.result = Result();
-                    
+                                
             this.result.value = value;
             this.result.outcome = 1;
             % this.result.evidence = 
@@ -31,7 +29,7 @@ classdef parseDate < Checker
         end
         % Plotter
         function plotResult(this)
-            warning('Overload this function with a specialized plot with a subclass'); % Fill in here
+            warning('No plot available for this chek');
         end
         
     end

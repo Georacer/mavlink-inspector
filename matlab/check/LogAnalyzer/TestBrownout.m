@@ -18,62 +18,88 @@ classdef TestBrownout < Checker
             this.result.setHash(this); % Pass the test object to generate the result hash
             this.result.logName = this.name;
             
-            outcome = false;
             value = [];
             lastArmState = 0;
+            
+            %% Check if the required data series are available
+            
+            [ARMArmStateIndex, logEntry] = getSeriesIndex(formats,msgs,'ARM','ArmState');
+            if ARMArmStateIndex < 0
+                this.writeLog(logEntry);
+                this.MISS();
+            end
+            [BAROAltIndex, logEntry] = getSeriesIndex(formats,msgs,'BARO','Alt');
+            if BAROAltIndex < 0
+                this.writeLog(logEntry);
+                this.MISS();
+            end
+            
+            if this.result.outcome == -2
+                return;
+            end
             
             %% Check based on EV message
             % EV message is no longer supported by DF, replacing by ARM
             
             %% Check based on ARM message
-            if ismember('ARM',env.msgsSeen)
-                lastArmState = msgs.ARM(end,2);
-            end            
+            lastArmState = msgs.ARM(end,ARMArmStateIndex);
             
-            index =  getSeriesIndex(formats,msgs,'BARO','Alt');
+            finalAlt = msgs.BARO(end,BAROAltIndex);
+            finalAltMax = 3;
             
-            % BarAlt no longer a member of CTUN, replacing by BARO
-            if index<1
-                value = 'No BARO log data, cannot decide';
-                outcome = -2;
-            else 
-                finalAlt = msgs.BARO(end,index);
-                finalAltMax = 3;
-                
-                if lastArmState==1 && (finalAlt>finalAltMax)
-                    value = sprintf('Log ends while armed and altitude %.2f',finalAlt);
-                    outcome = -1;
-                else
-                    value = 'No brownout detected';
-                    outcome = 1;
-                end
+            maxAlt = max(msgs.BARO(:,BAROAltIndex));
+            maxArm = max(msgs.ARM(:,ARMArmStateIndex));
+            
+            value = finalAlt;
+            
+            if lastArmState==1 && (finalAlt>finalAltMax)
+                this.FAIL();
             end
             
             %% Complete with evidence data series
             data = Series();
-            data.series = msgs.BARO(end,:);
-            % data.names = {};
-            % data.x_labels = {};
+            data.series = {msgs.BARO(:,BAROAltIndex) [msgs.ARM(1,ARMArmStateIndex)*maxAlt/maxArm msgs.ARM(:,ARMArmStateIndex)*maxAlt/maxArm msgs.ARM(end,ARMArmStateIndex)*maxAlt/maxArm]};
+            data.names = {'msgs.BARO.Alt' 'msgs.ARM.ArmState (normalized to Alt)'};
+            data.x_axis = {msgs.BARO(:,1) [msgs.BARO(1,1) msgs.ARM(:,1) msgs.BARO(end,1)]};
             
             %% Complete with evidence
             evidence = Evidence();
-            evidence.stamp_start = msgs.BARO(end,2);
-            evidence.stamp_stop = msgs.BARO(end,2);
+            evidence.stamp_start = msgs.BARO(1,1);
+            evidence.stamp_stop = msgs.BARO(end,1);
             evidence.data = data;
             
             %% Complete with result                    
             this.result.value = value;
-            this.result.outcome = outcome;
             this.result.evidence = evidence;
         end
         
         % Printer
         function output = printResult(this)
-            output = [this.result.value ' | Warning: This check is discouraged - barometer drift may affect results'];
+            switch this.result.outcome
+                case -2
+                    output = 'ERROR: The required data could not be procured. See result.log for more details.';
+                case -1
+                    output = sprintf('FAILED: Log ends while armed and altitude %.2f | Warning: This check is discouraged - barometer drift may affect results',this.result.value);
+                case 0
+                    output = sprintf('WARNING: Placeholder message here'); % FIll in here
+                case 1
+                    output = sprintf('PASSED: No brownout detected | Warning: This check is discouraged - barometer drift may affect results');
+                otherwise
+                    output = [];
+                    error('Unknown outcome code');
+            end
         end
         % Plotter
         function gh = plotResult(this)
-            warning('Overload this function with a specialized plot with a subclass'); % Fill in here
+            if this.result.outcome>-2
+                gh = figure();
+                plot(this.result.evidence.data.x_axis{1}, this.result.evidence.data.series{1});
+                hold on;
+                stairs(this.result.evidence.data.x_axis{2}, this.result.evidence.data.series{2},'r');
+                legend(this.result.evidence.data.names);
+            else
+                error('Cannot plot while missing data')
+            end
         end
         
     end

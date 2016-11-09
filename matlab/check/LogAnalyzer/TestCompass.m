@@ -30,7 +30,7 @@ classdef TestCompass < Checker
             
             if isnan([compassOfsXParamValue compassOfsYParamValue compassOfsZParamValue])
                 warning('Could not find COMPASS_OFS_* parameter');
-                this.result.outcome = -2;
+                this.MISS();
                 return;
             end
             
@@ -132,21 +132,22 @@ classdef TestCompass < Checker
             
             
             %% Complete with series data
-            % data = Series();
-            % data.series = [];
-            % data.names = {};
+            data = Series();
+            data.series = {norms [minMagFieldThreshold minMagFieldThreshold] [maxMagFieldThreshold maxMagFieldThreshold]};
+            data.x_axis = {msgs.MAG(:,1) [msgs.MAG(1,1) msgs.MAG(end,1)] [msgs.MAG(1,1) msgs.MAG(end,1)]};
+            data.names = {'Magnetic field magnitude' 'Maximum Threshold' 'Minimum Threshold'};
             % data.x_labels = {};
             
             %% Complete with evidence
-            % evidence = Evidence();
-            % evidence.stamp_start = [];
-            % evidence.stamp_stop = [];
-            % evidence.data = data;
+            evidence = Evidence();
+            evidence.stamp_start = msgs.MAG(1,1);
+            evidence.stamp_stop = msgs.MAG(end,1);
+            evidence.data = data;
             
             %% Complete result
                     
             this.result.value = []; % Fill in here
-            % this.result.evidence = evidence;
+            this.result.evidence = evidence;
         end
         % Printer
         function output = printResult(this)
@@ -186,7 +187,16 @@ classdef TestCompass < Checker
         end
         % Plotter
         function gh = plotResult(this)
-            warning('Replace this function content with a specialized plot'); % Fill in here
+            if this.result.outcome>-2
+                gh = figure();
+                plot(this.result.evidence.data.x_axis{1}, this.result.evidence.data.series{1});
+                hold on;
+                stairs(this.result.evidence.data.x_axis{2}, this.result.evidence.data.series{2},'r');
+                stairs(this.result.evidence.data.x_axis{3}, this.result.evidence.data.series{3},'r');
+                legend(this.result.evidence.data.names);
+            else
+                error('Cannot plot while missing data');
+            end
         end
         
     end

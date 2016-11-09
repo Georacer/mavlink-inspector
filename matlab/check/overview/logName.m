@@ -20,12 +20,20 @@ classdef logName < Checker
             filePath = find_log(env.logID);
             [~,fileName,ext] = fileparts(filePath);
             log_name = sprintf('%s%s',fileName,ext);
+            %% Complete with series data
+            data = Series();
+            data.series = {env.logID filePath};
+            data.names = {'Requested ID' 'Filepath'};
+            % data.x_labels = {};
             
-            this.result = Result();
+            %% Complete with evidence
+            evidence = Evidence();
+            evidence.data = data;
+            
                     
             this.result.value = log_name;
             this.result.outcome = 1;
-            % this.result.evidence = 
+            this.result.evidence = evidence;
             this.result.setHash(this); % Pass the test object to generate the result hash
         end
         % Printer
@@ -34,7 +42,7 @@ classdef logName < Checker
         end
         % Plotter
         function plotResult(this)
-            warning('Overload this function with a specialized plot with a subclass'); % Fill in here
+            warning('No plot available for this check');
         end
         
     end

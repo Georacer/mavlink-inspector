@@ -89,7 +89,7 @@ classdef TestDupeLogData < Checker
         end
         % Plotter
         function gh = plotResult(this)
-            warning('Replace this function content with a specialized plot'); % Fill in here
+            warning('No plot available for this check');
         end
         
     end

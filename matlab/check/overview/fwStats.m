@@ -50,6 +50,7 @@ classdef fwStats < Checker
             %%
             data = Series();
             data.series = evidenceLine;
+            data.names = 'msgs.MSG';
             
             %%
             evidence = Evidence();
@@ -77,7 +78,7 @@ classdef fwStats < Checker
         end
         % Plotter
         function plotResult(this)
-            warning('Overload this function with a specialized plot with a subclass'); % Fill in here
+            warning('No plot available for this check');
         end
         
     end
