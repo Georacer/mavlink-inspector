@@ -24,10 +24,21 @@ classdef logDate < Checker
             CPU_usec_lock = msgs.GPS(lockIndex,1);
             
             datenum = gps2utc(datetime(ws2gps(GPS_week_lock,GPS_sec_lock)));
+            %% Complete with series data
+            data = Series();
+            data.series = msgs.GPS(lockIndex,:);
+            data.names = 'msgs.GPS';
+            % data.x_labels = {};
+            
+            %% Complete with evidence
+            evidence = Evidence();
+            evidence.stamp_start = CPU_usec_lock;
+            evidence.stamp_stop = CPU_usec_lock;
+            evidence.data = data;
                                 
             this.result.value = [datenum CPU_usec_lock];
             this.result.outcome = 1;
-            % this.result.evidence = 
+            this.result.evidence = evidence;
             this.result.setHash(this); % Pass the test object to generate the result hash
         end
         % Printer
@@ -36,7 +47,7 @@ classdef logDate < Checker
         end
         % Plotter
         function plotResult(this)
-            warning('Overload this function with a specialized plot with a subclass'); % Fill in here
+            warning('No plot availale for this check');
         end
         
     end

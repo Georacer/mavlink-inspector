@@ -32,7 +32,7 @@ classdef logSize < Checker
         end
         % Plotter
         function plotResult(this)
-            warning('Overload this function with a specialized plot with a subclass'); % Fill in here
+            warning('No plot available for this check');
         end
         
     end

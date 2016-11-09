@@ -22,6 +22,11 @@ classdef logDuration < Checker
             firstStamp= inf;
             lastStamp = 0;
             
+            firstStampEvidence = '';
+            firstStampMsg = '';
+            lastStampEvidence = '';
+            lastStampMessage = '';
+            
             for i=1:length(names)
                 if isempty(msgs.(names{i}))
                     continue
@@ -33,18 +38,35 @@ classdef logDuration < Checker
                 
                 if stamps(1)<firstStamp
                     firstStamp = stamps(1);
+                    firstStampEvidence = msgs.(names{i})(1,:);
+                    firstStampMsg = sprintf('msgs.%s',names{i});
                 end
                 
                 if stamps(end)>lastStamp
                     lastStamp=stamps(end);
+                    lastStampEvidence = msgs.(names{i})(end,:);
+                    lastStampMsg = sprintf('msgs.%s',names{i});
                 end
             end
             
             value = (lastStamp-firstStamp)/1000000;
+            %% Complete with series data
+            data = Series();
+            data.series = {firstStampEvidence lastStampEvidence};
+            data.names = {firstStampMsg lastStampMsg};
+            % data.x_labels = {};
+            
+            %% Complete with evidence
+            evidence = Evidence();
+            evidence.stamp_start = firstStamp;
+            evidence.stamp_stop = lastStamp;
+            evidence.data = data;
+            
+            %% Complete result
                                 
             this.result.value = value;
             this.result.outcome = 1;
-            % this.result.evidence = 
+            this.result.evidence = evidence;
             this.result.setHash(this); % Pass the test object to generate the result hash
         end
         % Printer
@@ -53,7 +75,7 @@ classdef logDuration < Checker
         end
         % Plotter
         function plotResult(this)
-            warning('Overload this function with a specialized plot with a subclass'); % Fill in here
+            warning('No plot available for this check');
         end
         
     end

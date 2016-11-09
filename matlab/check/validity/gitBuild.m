@@ -11,17 +11,28 @@ classdef gitBuild < Checker
             this.name = 'gitBuild';
             this.description = 'Short git hash of the current branch';
             this.id = idList(this.name);
+            this.result = Result(); % Keep this initialization here; Matlab seems to go haywire if it is dynamically allocated inside `test`
         end
         % Tester
         function test(this,msgs,formats,env)
             [~,reply] = system(sprintf('git rev-parse HEAD'));
             hash = reply(1:7);
             
-            this.result = Result();
-                    
+            %% Complete with series data
+            data = Series();
+            data.series = {reply};
+            data.names = {'Response of "git rev-parse HEAD"'};
+            % data.x_labels = {};
+            
+            %% Complete with evidence
+            evidence = Evidence();
+%             evidence.stamp_start = [];
+%             evidence.stamp_stop = [];
+            evidence.data = data;
+                                
             this.result.value = reply(1:end-1); % Last character is EOL
             this.result.outcome = 1;
-            % result.evidence = 
+            this.result.evidence = evidence;
             this.result.setHash(this); % Pass the test object to generate the result hash
         end
         % Printer
@@ -30,7 +41,7 @@ classdef gitBuild < Checker
         end
         % Plotter
         function plotResult(this)
-            warning('Overload this function with a specialized plot with a subclass');
+            warning('No plot available for this check');
         end
         
     end

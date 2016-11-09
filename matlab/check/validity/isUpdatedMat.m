@@ -11,6 +11,7 @@ classdef isUpdatedMat < Checker
             this.name = 'isUpdatedMat';
             this.description = 'Check if the .mat file is up to date';
             this.id = idList(this.name);
+            this.result = Result();
         end
         % Tester
         function test(this,msgs,formats,env)
@@ -27,12 +28,22 @@ classdef isUpdatedMat < Checker
             else
                 outcome = -1;
             end
+            %% Complete with series data
+            data = Series();
+            data.series = {hashMat hash_log2mat};
+            data.names = {'Hash of the .mat file' 'Hash of the log2mat script'};
+            % data.x_labels = {};
             
-            this.result = Result();
-                    
+            %% Complete with evidence
+            evidence = Evidence();
+%             evidence.stamp_start = [];
+%             evidence.stamp_stop = [];
+            evidence.data = data;
+            
+            %% Complete result        
             % this.result.value = 
             this.result.outcome = outcome;
-            % this.result.evidence = 
+            this.result.evidence = evidence;
             this.result.setHash(this); % Pass the test object to generate the result hash
         end
         % Printer
@@ -46,7 +57,7 @@ classdef isUpdatedMat < Checker
         end
         % Plotter
         function plotResult(this)
-            warning('Overload this function with a specialized plot with a subclass');
+            warning('No plot available for this check');
         end
         
     end
